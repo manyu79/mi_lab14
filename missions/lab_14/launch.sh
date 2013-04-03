@@ -48,6 +48,14 @@ nsplug meta_vehicle.moos targ_$VNAME1.moos -f WARP=$TIME_WARP  \
 nsplug meta_vehicle.bhv targ_$VNAME1.bhv -f VNAME=$VNAME1      \
     START_POS=$START_POS1 
 
+nsplug meta_vehicle.moos targ_$VNAME1.moos -f WARP=$TIME_WARP  \
+   VNAME=$VNAME1      START_POS=$START_POS1                    \
+   VPORT="9001"       SHARE_LISTEN="9301"                      \
+   VTYPE=UUV          
+
+nsplug meta_vehicle.bhv targ_$VNAME1.bhv -f VNAME=$VNAME1      \
+    START_POS=$START_POS1 
+
 if [ ${JUST_MAKE} = "yes" ] ; then
     exit 0
 fi

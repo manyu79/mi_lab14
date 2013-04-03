@@ -14,7 +14,7 @@ Processconfig = ANTLER
 
   Run = MOOSDB           @ NewConsole = false
   Run = pMarineViewer    @ NewConsole = false
-  Run = pLogger          @ NewConsole = false
+//  Run = pLogger          @ NewConsole = false
   Run = uFldHazardSensor @ NewConsole = false
   Run = uFldHazardMetric @ NewConsole = false
 

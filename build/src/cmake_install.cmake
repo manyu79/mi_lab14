@@ -29,9 +29,8 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT)
 
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  INCLUDE("/Users/abelani/mi_lab14/build/src/lib_behaviors-test/cmake_install.cmake")
-  INCLUDE("/Users/abelani/mi_lab14/build/src/pXRelayTest/cmake_install.cmake")
-  INCLUDE("/Users/abelani/mi_lab14/build/src/pExampleApp/cmake_install.cmake")
+  INCLUDE("/Users/abelani/mi_lab14/build/src/uFldHazardMngr/cmake_install.cmake")
+  INCLUDE("/Users/abelani/mi_lab14/build/src/pHazardPath/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

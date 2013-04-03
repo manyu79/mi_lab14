@@ -102,43 +102,30 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named BHV_SimpleWaypoint
+# Target rules for targets named uFldHazardMngr
 
 # Build rule for target.
-BHV_SimpleWaypoint: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 BHV_SimpleWaypoint
-.PHONY : BHV_SimpleWaypoint
+uFldHazardMngr: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 uFldHazardMngr
+.PHONY : uFldHazardMngr
 
 # fast build rule for target.
-BHV_SimpleWaypoint/fast:
-	$(MAKE) -f src/lib_behaviors-test/CMakeFiles/BHV_SimpleWaypoint.dir/build.make src/lib_behaviors-test/CMakeFiles/BHV_SimpleWaypoint.dir/build
-.PHONY : BHV_SimpleWaypoint/fast
+uFldHazardMngr/fast:
+	$(MAKE) -f src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/build.make src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/build
+.PHONY : uFldHazardMngr/fast
 
 #=============================================================================
-# Target rules for targets named pXRelayTest
+# Target rules for targets named pHazardPath
 
 # Build rule for target.
-pXRelayTest: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pXRelayTest
-.PHONY : pXRelayTest
+pHazardPath: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pHazardPath
+.PHONY : pHazardPath
 
 # fast build rule for target.
-pXRelayTest/fast:
-	$(MAKE) -f src/pXRelayTest/CMakeFiles/pXRelayTest.dir/build.make src/pXRelayTest/CMakeFiles/pXRelayTest.dir/build
-.PHONY : pXRelayTest/fast
-
-#=============================================================================
-# Target rules for targets named pExampleApp
-
-# Build rule for target.
-pExampleApp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pExampleApp
-.PHONY : pExampleApp
-
-# fast build rule for target.
-pExampleApp/fast:
-	$(MAKE) -f src/pExampleApp/CMakeFiles/pExampleApp.dir/build.make src/pExampleApp/CMakeFiles/pExampleApp.dir/build
-.PHONY : pExampleApp/fast
+pHazardPath/fast:
+	$(MAKE) -f src/pHazardPath/CMakeFiles/pHazardPath.dir/build.make src/pHazardPath/CMakeFiles/pHazardPath.dir/build
+.PHONY : pHazardPath/fast
 
 # Help Target
 help:
@@ -148,9 +135,8 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... BHV_SimpleWaypoint"
-	@echo "... pXRelayTest"
-	@echo "... pExampleApp"
+	@echo "... uFldHazardMngr"
+	@echo "... pHazardPath"
 .PHONY : help
 
 

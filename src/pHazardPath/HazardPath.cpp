@@ -98,6 +98,7 @@ void HazardPath::RegisterVariables()
   // Register("FOOBAR", 0);
 }
 
+//---------------------------------------------------------
 
 void HazardPath::genLawnMower(int offset, int start_offset){
   int tl[] = {-150,-75}; 

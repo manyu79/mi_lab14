@@ -23,6 +23,7 @@ class HazardPath : public CMOOSApp
   void RegisterVariables();
   void genLawnMower(int, int); 
   std::string intToString(int); 
+  std::vector<std::vector<std::vector<double> > > genTracklines(int swath);
 
 protected:
   int m_offset; 

@@ -77,7 +77,7 @@ bool HazardPath::OnStartUp()
       string value = stripBlankEnds(line);
                                                            
       if(param == "OFFSET") {                                      
-        m_offset = 4*atoi(value.c_str())-5;                 
+        m_offset = 2*atoi(value.c_str())-5;                 
       }                                                             
       else if(param == "START_OFFSET") {                                  
         m_start_offset = atoi(value.c_str());    

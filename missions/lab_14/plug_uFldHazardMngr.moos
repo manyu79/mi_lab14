@@ -7,7 +7,7 @@ ProcessConfig = uFldHazardMngr
   CommsTick = 2
 
   name	    = $(VNAME)
-  master    = $(MASTER)
+  is_master   = $(MASTER)
   swath_width = $(WIDTH)
   sensor_pd   = 0.86
   report_name = $(VNAME)

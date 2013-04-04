@@ -4,7 +4,7 @@
 #-------------------------------------------------------
 TIME_WARP=1
 JUST_MAKE="no"
-HAZARD_FILE="hazards.txt"
+HAZARD_FILE="hazards_01.txt"
 for ARGI; do
     if [ "${ARGI}" = "--help" -o "${ARGI}" = "-h" ] ; then
 	printf "%s [SWITCHES] [time_warp]   \n" $0
@@ -48,7 +48,7 @@ nsplug meta_vehicle.moos targ_$VNAME1.moos -f WARP=$TIME_WARP  \
    VPORT="9001"       SHARE_LISTEN="9301"                      \
    VTYPE=UUV          SHORE_LISTEN=$SHORE_LISTEN               \
    MASTER="true"      OFFSET="5"                               \
-   WIDTH="10"
+   WIDTH="20"
 
 nsplug meta_vehicle.bhv targ_$VNAME1.bhv -f VNAME=$VNAME1      \
     START_POS=$START_POS1 
@@ -58,8 +58,8 @@ nsplug meta_vehicle.moos targ_$VNAME2.moos -f WARP=$TIME_WARP  \
    VNAME=$VNAME2      START_POS=$START_POS2                    \
    VPORT="9002"       SHARE_LISTEN="9302"                      \
    VTYPE=UUV          SHORE_LISTEN=$SHORE_LISTEN               \
-   MASTER="true"      OFFSET="25"                               \
-   WIDTH="10"
+   MASTER="true"      OFFSET="5"                               \
+   WIDTH="20"
 
 nsplug meta_vehicle.bhv targ_$VNAME2.bhv -f VNAME=$VNAME2      \
     START_POS=$START_POS2 
@@ -85,7 +85,7 @@ printf "Done \n"
 uMAC targ_shoreside.moos
 
 printf "Killing all processes ... \n"
-kill %1 %2 
+kill %1 %2 %3
 printf "Done killing processes.   \n"
 
 

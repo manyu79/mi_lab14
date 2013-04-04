@@ -48,7 +48,7 @@ nsplug meta_vehicle.moos targ_$VNAME1.moos -f WARP=$TIME_WARP  \
    VPORT="9001"       SHARE_LISTEN="9301"                      \
    VTYPE=UUV          SHORE_LISTEN=$SHORE_LISTEN               \
    MASTER="true"      OFFSET="5"                               \
-   WIDTH="20"
+   WIDTH="10"
 
 nsplug meta_vehicle.bhv targ_$VNAME1.bhv -f VNAME=$VNAME1      \
     START_POS=$START_POS1 
@@ -59,7 +59,7 @@ nsplug meta_vehicle.moos targ_$VNAME2.moos -f WARP=$TIME_WARP  \
    VPORT="9002"       SHARE_LISTEN="9302"                      \
    VTYPE=UUV          SHORE_LISTEN=$SHORE_LISTEN               \
    MASTER="true"      OFFSET="5"                               \
-   WIDTH="20"
+   WIDTH="10"
 
 nsplug meta_vehicle.bhv targ_$VNAME2.bhv -f VNAME=$VNAME2      \
     START_POS=$START_POS2 

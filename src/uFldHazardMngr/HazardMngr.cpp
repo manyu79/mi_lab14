@@ -50,6 +50,7 @@ HazardMngr::HazardMngr()
   m_sensor_config_acks = 0;
   m_sensor_report_reqs = 0;
   m_detection_reports  = 0;
+  m_hazard_reports     = 0;
 
   m_summary_reports = 0;
 }
@@ -81,6 +82,9 @@ bool HazardMngr::OnNewMail(MOOSMSG_LIST &NewMail)
 
     else if(key == "UHZ_OPTIONS_SUMMARY") 
       handleMailSensorOptionsSummary(sval);
+
+    else if(key == "UHZ_HAZARD_REPORT")
+      handleMailHazardReport(sval);
 
     else if(key == "UHZ_DETECTION_REPORT") 
       handleMailDetectionReport(sval);
@@ -187,7 +191,10 @@ bool HazardMngr::OnStartUp()
   }
   
   m_hazard_set.setSource(m_host_community);
+  m_class_hazard.setSource(m_host_community);
   m_hazard_set.setName(m_report_name);
+  m_class_hazard.setName(m_report_name);
+  
   
   registerVariables();	
   return(true);
@@ -286,6 +293,34 @@ bool HazardMngr::handleMailSensorConfigAck(string str)
 }
 
 //---------------------------------------------------------
+// Procedure: handleMailHazardReport
+//      Note: Report will look like:
+//            UHZ_HAZARD_REPORT = x=45,y-88,label=12,type=hazard
+
+bool HazardMngr::handleMailHazardReport(string str)
+{
+  m_hazard_reports++;
+
+  XYHazard classed_hazard = string2Hazard(str);
+
+  string classed_label = classed_hazard.getLabel();
+
+  if(classed_hazard.getType() == "hazard"){    
+    int xi = m_class_hazard.findHazard(classed_label);
+    if(xi ==-1)
+      m_class_hazard.addHazard(classed_hazard);
+    else
+      m_class_hazard.setHazard(xi, classed_hazard);
+  }
+  
+  string event = "Classified: label=" + classed_hazard.getLabel();
+  reportEvent(event);
+
+  return(true);
+  
+}
+
+//---------------------------------------------------------
 // Procedure: handleMailDetectionReport
 //      Note: The detection report should look something like:
 //            UHZ_DETECTION_REPORT = vname=betty,x=51,y=11.3,label=12 
@@ -330,12 +365,14 @@ bool HazardMngr::handleMailDetectionReport(string str)
 void HazardMngr::handleMailReportRequest()
 {
   m_summary_reports++;
-  if(true){ //m_master
-    string summary_report = m_hazard_set.getSpec("final_report");
-    Notify("HAZARDSET_REPORT", summary_report);
+  string summary_report;
+  if(m_class_hazard.size()==0){ //m_master
+    summary_report = m_hazard_set.getSpec("final_report");
   }
   else{
+    summary_report = m_class_hazard.getSpec("final_report");
   }
+  Notify("HAZARDSET_REPORT", summary_report);
 }
 
 //------------------------------------------------------------

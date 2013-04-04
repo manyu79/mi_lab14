@@ -47,7 +47,7 @@ class HazardMngr : public AppCastingMOOSApp
    bool handleMailSensorConfigAck(std::string);
    bool handleMailSensorOptionsSummary(std::string) {return(true);};
    bool handleMailDetectionReport(std::string);
-   bool handleMailHazardReport(std::string) {return(true);};
+   bool handleMailHazardReport(std::string);
    void handleMailReportRequest();
    void syncToMaster(); 
    void sendReport(); 
@@ -75,13 +75,14 @@ class HazardMngr : public AppCastingMOOSApp
 
    unsigned int m_sensor_report_reqs;
    unsigned int m_detection_reports;
-
+   unsigned int m_hazard_reports;
    unsigned int m_summary_reports;
 
    double m_swath_width_granted;
    double m_pd_granted;
 
    XYHazardSet m_hazard_set;
+   XYHazardSet m_class_hazard;
 
    std::string m_slave_report; 
 

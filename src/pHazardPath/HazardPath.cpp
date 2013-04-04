@@ -101,10 +101,7 @@ void HazardPath::RegisterVariables()
 //---------------------------------------------------------
 
 void HazardPath::genLawnMower(int offset, int start_offset){
-  int tl[] = {-150,-75}; 
-  int ll[] = {-150,-400}; 
-  int lr[] = {400, -400}; 
-  int tr[] = {400,-75}; 
+
 
   string points; 
   int xpt = tl[0]+start_offset; 
@@ -144,3 +141,29 @@ string HazardPath::intToString(int val)
    string str = buff;
    return(str);
  }
+
+
+std::vector<std::vector<std::vector<double>>> HazardPath::genTracklines(int swath){
+  int tl[] = {-150,-75}; 
+  int ll[] = {-150,-400}; 
+  int lr[] = {400, -400}; 
+  int tr[] = {400,-75}; 
+  int offset = 5; 
+
+  std::vector< std::vector<int>> trackline; 
+
+
+  int num_lines=(tr[0]-tl[0]+0.5)/swath; 
+    cout<<"num_lines= "<<num_lines<<endl; 
+    std::vector<std::vector<std::vector<double>>> result; 
+    for(int i=0; i<=num_lines; i++){
+      trackline[0][0]= swath/2.0+swath*i; 
+      trackline[0][1]= tl[1]+offset; 
+      trackline[1][0]= trackline[0][0]; 
+      trackline[1][1]= tl[1]-offset; 
+      result[i]=trackline; 
+    }
+
+return result; 
+
+}

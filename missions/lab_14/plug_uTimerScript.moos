@@ -1,0 +1,10 @@
+ProcessConfig = uTimerScript
+{
+
+  AppTick = 4
+  CommsTick = 4
+
+  script_atomic = true
+  condition	= DEPLOY = true 	
+  event= var=HAZARDSET_REQUEST ,val=true, time=8950
+}

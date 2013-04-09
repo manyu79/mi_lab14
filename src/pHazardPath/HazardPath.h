@@ -25,7 +25,7 @@ class HazardPath : public CMOOSApp
   std::string intToString(int); 
   std::vector<std::vector<std::vector<int> > > genTracklines(int swath);
   bool traverseTrackline(int); 
-  double getDist(std::vector<double>, std::vector<double>); 
+  double getDist(std::vector<int>, std::vector<double>); 
 
 protected:
   int m_offset; 

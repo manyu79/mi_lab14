@@ -181,15 +181,29 @@ std::vector<std::vector<std::vector<int> > > HazardPath::genTracklines(int swath
     }
 
 return result; 
-
 }
 
 bool HazardPath::traverseTrackline(int num){
-  std::vector< std::vector<int> > trackline; 
-  
+  std::vector< std::vector<int> > trackline = trackline_vec[num]; 
+  double capture_radius = .75; 
+  std::string points= "points="; 
+  if(getDist(trackline[0],m_pos)<getDist(trackline[1],m_pos)){
+    points = points +intToString(trackline[0][0])+","+intToString(trackline[0][1])+":"; 
+    points = points +intToString(trackline[1][0])+","+intToString(trackline[1][1]);
+    m_Comms.Notify("PATH_UPDATE",points); 
+    while(getDist(trackline[1],m_pos)>capture_radius){}
+    return true; 
+  }else{
+    points = points +intToString(trackline[1][0])+","+intToString(trackline[1][1])+":"; 
+    points = points +intToString(trackline[0][0])+","+intToString(trackline[0][1]);
+    m_Comms.Notify("PATH_UPDATE",points); 
+    while(getDist(trackline[0],m_pos)>capture_radius){}
+    return true; 
+  }
+  return false;   
 }
 
-double HazardPath::getDist(std::vector<double> cat, std::vector<double> dog){
+double HazardPath::getDist(std::vector<int> cat, std::vector<double> dog){
   double mouse = pow(dog[0]-cat[0],2)+pow(dog[1]-cat[1],2); 
   return pow(mouse,2); 
 } 

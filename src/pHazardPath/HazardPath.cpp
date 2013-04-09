@@ -16,8 +16,7 @@
 using namespace std;
 
 std::vector< std::vector< std::vector<int> > > trackline_vec; 
-double m_x=0; 
-double m_y=0; 
+std::vector<double> m_pos; 
 
 //---------------------------------------------------------
 // Constructor
@@ -44,9 +43,9 @@ bool HazardPath::OnNewMail(MOOSMSG_LIST &NewMail)
       CMOOSMsg &msg = *p;
 
       if(msg.GetString()=="NAV_X"){
-	m_x=msg.GetDouble(); 
+	m_pos[0]=msg.GetDouble(); 
       }else if(msg.GetString()=="NAV_Y"){
-	m_y=msg.GetDouble(); 
+	m_pos[1]=msg.GetDouble(); 
       }
    }
 	

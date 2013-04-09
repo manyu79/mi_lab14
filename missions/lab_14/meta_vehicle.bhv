@@ -40,7 +40,7 @@ Behavior = BHV_Waypoint
   perpetual  = true
   endflag    = RETURN = false
   endflag    = DEPLOY = false
-//  endflag    = HAZARDSET_REQUEST = true
+  endflag    = HAZARDSET_REQUEST = true
   endflag    = NODE_MESSAGE_LOCAL = src_node=archie,dest_node=betty,var_name=SURVEY,string_val=COMPLETE
 
          speed = 2.0
@@ -62,32 +62,4 @@ Behavior = BHV_ConstantDepth
     basewidth = 2
   summitdelta = 20
 }
-
-//--------------------------------------------
-Behavior = BHV_Timer
-{
-  name		= report_time
-  pwt 		= 100
-  script_atomic = true
-  condition	= DEPLOY = true 	
-  duration   	= 8950 
-
-  endflag	= HAZARDSET_REQUEST = true
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

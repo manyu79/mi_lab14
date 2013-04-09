@@ -383,7 +383,7 @@ void HazardMngr::handleMailReportRequest()
   summary_report = m_class_hazard.getSpec("final_report");      
 
   if(m_master){
-    if (m_req_flag = 0) m_req_flag = MOOSTime();    
+    if (m_req_flag == 0) m_req_flag = MOOSTime();    
     if( (m_slave_report_received) ){ //|| ((MOOSTime()-m_req_flag)>20) ){
       Notify("HAZARDSET_REPORT", summary_report); 
       m_req_flag = 0;

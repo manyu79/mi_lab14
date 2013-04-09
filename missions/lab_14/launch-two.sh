@@ -4,7 +4,7 @@
 #-------------------------------------------------------
 TIME_WARP=1
 JUST_MAKE="no"
-VNAME1="betty"      # The first vehicle community
+VNAME1="dxyazdi"      # The first vehicle community
 
 for ARGI; do
     if [ "${ARGI}" = "--help" -o "${ARGI}" = "-h" ] ; then

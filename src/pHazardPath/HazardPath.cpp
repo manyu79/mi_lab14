@@ -11,8 +11,13 @@
 #include "HazardPath.h"
 #include <string>
 #include <stdlib.h>
+#include <math.h>
 
 using namespace std;
+
+std::vector< std::vector< std::vector<int> > > trackline_vec; 
+double m_x=0; 
+double m_y=0; 
 
 //---------------------------------------------------------
 // Constructor
@@ -37,6 +42,12 @@ bool HazardPath::OnNewMail(MOOSMSG_LIST &NewMail)
    
    for(p=NewMail.begin(); p!=NewMail.end(); p++) {
       CMOOSMsg &msg = *p;
+
+      if(msg.getString()=="NAV_X"){
+	m_x=msg.getDouble(); 
+      }else if(msg.getString()=="NAV_Y"){
+	m_y=msg.getDouble(); 
+      }
    }
 	
    return(true);
@@ -96,6 +107,8 @@ bool HazardPath::OnStartUp()
 void HazardPath::RegisterVariables()
 {
   // Register("FOOBAR", 0);
+  mcomms.Register("NAV_X",0); 
+  mcomms.Register("NAV_Y",0); 
 }
 
 //---------------------------------------------------------
@@ -171,4 +184,14 @@ std::vector<std::vector<std::vector<int> > > HazardPath::genTracklines(int swath
 return result; 
 
 }
+
+bool HazardPath::traverseTrackline(int num){
+  std::vector< std::vector<int> > trackline; 
+  
+}
+
+double HazardPath::getDist(std::vector<double> cat, std::vector<double> dog){
+  double mouse = pow(dog[0]-cat[0],2)+pow(dog[1]-cat[1],2); 
+  return pow(mouse,2); 
+} 
 

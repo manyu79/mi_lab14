@@ -63,3 +63,30 @@ Behavior = BHV_ConstantDepth
   summitdelta = 20
 }
 
+//--------------------------------------------
+Behavior = BHV_Timer
+{
+  name		= report_time
+  pwt 		= 100
+  condition 	= DEPLOY = true
+  duration   	= 8950 
+
+  endflag	= TIME_OUT=true
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

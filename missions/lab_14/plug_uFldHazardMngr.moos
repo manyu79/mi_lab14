@@ -9,6 +9,6 @@ ProcessConfig = uFldHazardMngr
   name	    = $(VNAME)
   is_master   = $(MASTER)
   swath_width = $(WIDTH)
-  sensor_pd   = 0.86
+  sensor_pd   = $(PD)
   report_name = $(VNAME)
 }

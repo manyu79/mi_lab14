@@ -4,7 +4,8 @@
 #-------------------------------------------------------
 TIME_WARP=1
 JUST_MAKE="no"
-HAZARD_FILE="hazards_04.txt"
+VNAME1="abelani"      # The first vehicle community
+
 for ARGI; do
     if [ "${ARGI}" = "--help" -o "${ARGI}" = "-h" ] ; then
 	printf "%s [SWITCHES] [time_warp]   \n" $0
@@ -12,8 +13,6 @@ for ARGI; do
 	printf "  --hazards=file.txt \n" 
 	printf "  --help, -h         \n" 
 	exit 0;
-    elif [ "${ARGI:0:10}" = "--hazards=" ] ; then
-        HAZARD_FILE="${ARGI#--hazards=*}"
     elif [ "${ARGI//[^0-9]/}" = "$ARGI" -a "$TIME_WARP" = 1 ]; then 
         TIME_WARP=$ARGI
     elif [ "${ARGI}" = "--just_build" -o "${ARGI}" = "-j" ] ; then
@@ -24,24 +23,11 @@ for ARGI; do
     fi
 done
 
-if [ -f $HAZARD_FILE ]; then
-  echo "Using Hazard File $HAZARD_FILE"
-else
-  echo "$HAZARD_FILE not found. Exiting"
-  exit 0
-fi 
 
 #-------------------------------------------------------
 #  Part 2: Create the .moos and .bhv files. 
 #-------------------------------------------------------
-VNAME1="archie"      # The first vehicle community
 START_POS1="0,0"  
-VNAME2="betty"       # The secnd vehicle community
-START_POS2="0,0"  
-
-nsplug meta_shoreside.moos targ_shoreside.moos -f WARP=$TIME_WARP \
-   VNAME="shoreside" HAZARD_FILE=$HAZARD_FILE   
-
 
 nsplug meta_vehicle.moos targ_$VNAME1.moos -f WARP=$TIME_WARP  \
    VNAME=$VNAME1      START_POS=$START_POS1                    \
@@ -55,20 +41,6 @@ nsplug meta_vehicle.moos targ_$VNAME1.moos -f WARP=$TIME_WARP  \
 nsplug meta_vehicle.bhv targ_$VNAME1.bhv -f VNAME=$VNAME1      \
     START_POS=$START_POS1 
 
-
-nsplug meta_vehicle.moos targ_$VNAME2.moos -f WARP=$TIME_WARP  \
-   VNAME=$VNAME2      START_POS=$START_POS2                    \
-   VPORT="9002"       SHARE_LISTEN="9302"                      \
-   VTYPE=UUV          SHORE_LISTEN=$SHORE_LISTEN               \
-   MASTER="true"      OFFSET="10"                              \
-   WIDTH="10"          PATH_WIDTH="5"                          \
-   PD="0.86"
-
-
-nsplug meta_vehicle.bhv targ_$VNAME2.bhv -f VNAME=$VNAME2      \
-    START_POS=$START_POS2 
-
-
 if [ ${JUST_MAKE} = "yes" ] ; then
     exit 0
 fi
@@ -79,17 +51,12 @@ fi
 printf "Launching $VNAME1 MOOS Community (WARP=%s) \n" $TIME_WARP
 pAntler targ_$VNAME1.moos >& /dev/null &
 sleep .25
-printf "Launching $VNAME2 MOOS Community (WARP=%s) \n" $TIME_WARP
-pAntler targ_$VNAME2.moos >& /dev/null &
-sleep .25
-printf "Launching $SNAME MOOS Community (WARP=%s) \n"  $TIME_WARP
-pAntler targ_shoreside.moos >& /dev/null &
 printf "Done \n"
 
-uMAC targ_shoreside.moos
+uMAC targ_$VNAME1.moos
 
 printf "Killing all processes ... \n"
-kill %1 %2 %3
+kill %1
 printf "Done killing processes.   \n"
 
 

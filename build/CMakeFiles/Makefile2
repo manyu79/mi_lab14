@@ -38,22 +38,16 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/local/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/local/bin/cmake -E remove -f
-
-# Escaping for special characters.
-EQUALS = =
-
-# The program to use to edit the cache.
-CMAKE_EDIT_COMMAND = /opt/local/bin/ccmake
+RM = /usr/bin/cmake -E remove -f
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/dxyazdi/mi_lab14
+CMAKE_SOURCE_DIR = /home/abelani/MIT/mi_lab14
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/dxyazdi/mi_lab14/build
+CMAKE_BINARY_DIR = /home/abelani/MIT/mi_lab14/build
 
 #=============================================================================
 # Directory level rules for directory src
@@ -95,7 +89,7 @@ src/uFldHazardMngr/preinstall:
 src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/all:
 	$(MAKE) -f src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/build.make src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/depend
 	$(MAKE) -f src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/build.make src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/dxyazdi/mi_lab14/build/CMakeFiles  3 4 5
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/abelani/MIT/mi_lab14/build/CMakeFiles  3 4 5
 	@echo "Built target uFldHazardMngr"
 .PHONY : src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/all
 
@@ -105,9 +99,9 @@ all: src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/all
 
 # Build rule for subdir invocation for target.
 src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dxyazdi/mi_lab14/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/abelani/MIT/mi_lab14/build/CMakeFiles 3
 	$(MAKE) -f CMakeFiles/Makefile2 src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dxyazdi/mi_lab14/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/abelani/MIT/mi_lab14/build/CMakeFiles 0
 .PHONY : src/uFldHazardMngr/CMakeFiles/uFldHazardMngr.dir/rule
 
 # Convenience name for target.
@@ -145,7 +139,7 @@ src/pHazardPath/preinstall:
 src/pHazardPath/CMakeFiles/pHazardPath.dir/all:
 	$(MAKE) -f src/pHazardPath/CMakeFiles/pHazardPath.dir/build.make src/pHazardPath/CMakeFiles/pHazardPath.dir/depend
 	$(MAKE) -f src/pHazardPath/CMakeFiles/pHazardPath.dir/build.make src/pHazardPath/CMakeFiles/pHazardPath.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /Users/dxyazdi/mi_lab14/build/CMakeFiles  1 2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/abelani/MIT/mi_lab14/build/CMakeFiles  1 2
 	@echo "Built target pHazardPath"
 .PHONY : src/pHazardPath/CMakeFiles/pHazardPath.dir/all
 
@@ -155,9 +149,9 @@ all: src/pHazardPath/CMakeFiles/pHazardPath.dir/all
 
 # Build rule for subdir invocation for target.
 src/pHazardPath/CMakeFiles/pHazardPath.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dxyazdi/mi_lab14/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/abelani/MIT/mi_lab14/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 src/pHazardPath/CMakeFiles/pHazardPath.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dxyazdi/mi_lab14/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/abelani/MIT/mi_lab14/build/CMakeFiles 0
 .PHONY : src/pHazardPath/CMakeFiles/pHazardPath.dir/rule
 
 # Convenience name for target.

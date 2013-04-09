@@ -24,6 +24,8 @@ class HazardPath : public CMOOSApp
   void genLawnMower(int, int); 
   std::string intToString(int); 
   std::vector<std::vector<std::vector<int> > > genTracklines(int swath);
+  bool traverseTrackline(int); 
+  double getDist(std::vector<double>, std::vector<double>); 
 
 protected:
   int m_offset; 

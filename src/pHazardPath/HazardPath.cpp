@@ -43,10 +43,10 @@ bool HazardPath::OnNewMail(MOOSMSG_LIST &NewMail)
    for(p=NewMail.begin(); p!=NewMail.end(); p++) {
       CMOOSMsg &msg = *p;
 
-      if(msg.getString()=="NAV_X"){
-	m_x=msg.getDouble(); 
-      }else if(msg.getString()=="NAV_Y"){
-	m_y=msg.getDouble(); 
+      if(msg.GetString()=="NAV_X"){
+	m_x=msg.GetDouble(); 
+      }else if(msg.GetString()=="NAV_Y"){
+	m_y=msg.GetDouble(); 
       }
    }
 	
@@ -107,8 +107,8 @@ bool HazardPath::OnStartUp()
 void HazardPath::RegisterVariables()
 {
   // Register("FOOBAR", 0);
-  mcomms.Register("NAV_X",0); 
-  mcomms.Register("NAV_Y",0); 
+  m_Comms.Register("NAV_X",0); 
+  m_Comms.Register("NAV_Y",0); 
 }
 
 //---------------------------------------------------------

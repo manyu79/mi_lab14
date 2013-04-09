@@ -1,9 +1,12 @@
 //------------------------------------------------
-// uFldHazardMgr config block
+// uFldHazardMngr config block
 
-ProcessConfig = uFldHazardMgr
+ProcessConfig = uFldHazardMngr
 {
    AppTick   = 4
    CommsTick = 4
+   is_master=true
+   name = narf
+   report_name = narf
 }
 

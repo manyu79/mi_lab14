@@ -51,8 +51,12 @@ HazardMngr::HazardMngr()
   m_sensor_report_reqs = 0;
   m_detection_reports  = 0;
   m_hazard_reports     = 0;
+  m_slave_report_received = false;
+  m_detecting = true;
 
   m_summary_reports = 0;
+
+  m_req_flag = 0;
 }
 
 //---------------------------------------------------------
@@ -92,20 +96,19 @@ bool HazardMngr::OnNewMail(MOOSMSG_LIST &NewMail)
     else if(key == "HAZARDSET_REQUEST") 
       handleMailReportRequest();
     
-    else if(key == "TIME_OUT"){
-      if(sval == "true"){
-	if (!m_master){
-	  syncToMaster(); 
-	}
-	else
-	  sendReport(); 
-      }
-    } 
+    else if(key == "SURVEY_INFO"){
+      if(sval == "ended")
+	m_detecting = false;
+      if(sval == "begin")
+	m_detecting = true;
+    }
+	 
     else if(key == "SLAVE_REPORT"){
-      m_slave_report = sval; 
+      parseIncomingReport(sval); 
       m_slave_report_received = true;
-      cout<<"slave report received"<<endl; 
-    } 
+      //      cout<<"slave report received"<<endl; 
+    }
+ 
     else 
       reportRunWarning("Unhandled Mail: " + key);
   }
@@ -130,11 +133,14 @@ bool HazardMngr::Iterate()
 {
   AppCastingMOOSApp::Iterate();
 
-  if(!m_sensor_config_requested)
+  if(m_detecting && !m_sensor_config_requested)
     postSensorConfigRequest();
 
   if(m_sensor_config_set)
     postSensorInfoRequest();
+  
+  if(m_req_flag)
+    handleMailReportRequest();
 
   AppCastingMOOSApp::PostReport();
   return(true);
@@ -213,6 +219,7 @@ void HazardMngr::registerVariables()
   m_Comms.Register("HAZARDSET_REQUEST", 0);
   m_Comms.Register("SLAVE_REPORT",0); 
   m_Comms.Register("TIME_OUT",0); 
+  m_Comms.Register("SURVEY_INFO",0);
 }
 
 //---------------------------------------------------------
@@ -305,15 +312,14 @@ bool HazardMngr::handleMailHazardReport(string str)
 
   string classed_label = classed_hazard.getLabel();
 
-  if(classed_hazard.getType() == "hazard"){    
-    int xi = m_class_hazard.findHazard(classed_label);
-    if(xi ==-1)
-      m_class_hazard.addHazard(classed_hazard);
-    else
-      m_class_hazard.setHazard(xi, classed_hazard);
-  }
+  int xi = m_hazard_set.findHazard(classed_label);
+  if(xi ==-1)
+    m_hazard_set.addHazard(classed_hazard);
+  else
+    m_hazard_set.setHazard(xi, classed_hazard);
   
-  string event = "Classified: label=" + classed_hazard.getLabel();
+  string event = "Classified: label=" + classed_hazard.getLabel()
+    +" type="+classed_hazard.getType();
   reportEvent(event);
 
   return(true);
@@ -364,15 +370,30 @@ bool HazardMngr::handleMailDetectionReport(string str)
 
 void HazardMngr::handleMailReportRequest()
 {
-  m_summary_reports++;
+
   string summary_report;
-  if(m_class_hazard.size()==0){ //m_master
-    summary_report = m_hazard_set.getSpec("final_report");
+  m_summary_reports++;
+
+  for(int i = 0;i<m_hazard_set.size();i++){
+    XYHazard haz = m_hazard_set.getHazard(i);
+    if(haz.getType()!="benign" && !m_class_hazard.hasHazard(haz.getLabel()) )
+      m_class_hazard.addHazard(haz);
+  }
+  
+  summary_report = m_class_hazard.getSpec("final_report");      
+
+  if(m_master){
+    if (m_req_flag = 0) m_req_flag = MOOSTime();    
+    if( (m_slave_report_received) ){ //|| ((MOOSTime()-m_req_flag)>20) ){
+      Notify("HAZARDSET_REPORT", summary_report); 
+      m_req_flag = 0;
+      m_slave_report_received = false;
+    }
   }
   else{
-    summary_report = m_class_hazard.getSpec("final_report");
+    summary_report = "src_node="+m_name+",dest_node=all,var_name=SLAVE_REPORT,string_val=\""+summary_report+"\"";
+    Notify("NODE_MESSAGE_LOCAL", summary_report); 
   }
-  Notify("HAZARDSET_REPORT", summary_report);
 }
 
 //------------------------------------------------------------
@@ -393,6 +414,7 @@ bool HazardMngr::buildReport()
   m_msgs << "--------------------------------------------" << endl << endl;
 
   m_msgs << "               sensor requests: " << m_sensor_report_reqs << endl;
+  m_msgs << "                hazard reports: " << m_hazard_reports     << endl;
   m_msgs << "             detection reports: " << m_detection_reports  << endl << endl; 
 
   m_msgs << "   Hazardset Reports Requested: " << m_summary_reports << endl;
@@ -400,33 +422,6 @@ bool HazardMngr::buildReport()
   m_msgs << "                   Report Name: " << m_report_name << endl;
 
   return(true);
-}
-
-//---------------------------------------------------------------
-// Procedure: syncToMaster()
-
-void HazardMngr::syncToMaster()
-{
-  string temp1 = m_hazard_set.getSpec(); 
-  string temp2 = "src_node="+m_name+",dest_node=all,var_name=SLAVE_REPORT,string_val=\""+temp1+"\""; 
-  cout<<temp2<<endl; 
-  Notify("NODE_MESSAGE_LOCAL",temp2); 
-}
-
-
-//--------------------------------------------------------------------
-//Procedure: sendReport()
-
-void HazardMngr::sendReport()
-{
-  int start_time=MOOSTime(); 
-  while((MOOSTime()-start_time)<45){
-    if(m_slave_report_received){
-      break; 
-    }
-  }
-  parseIncomingReport(m_slave_report); 
-  handleMailReportRequest(); 
 }
 
 
@@ -437,8 +432,8 @@ void HazardMngr::parseIncomingReport(string report){
   vector<string> svec;
   vector<string> repvec = parseString(report, '#');
   for (int i=2;i<repvec.size();i++){
-    cout << repvec[i] << endl;
-    svec = parseString(repvec[i], ',');
+    //cout << repvec[i] << endl;
+    /*    svec = parseString(repvec[i], ',');
     for (int j=0;j<svec.size();j++){
       biteString(svec[j],'=');
     }
@@ -446,7 +441,10 @@ void HazardMngr::parseIncomingReport(string report){
     cheesesteak.setX(strtod(svec[0].c_str(),NULL));
     cheesesteak.setX(strtod(svec[1].c_str(),NULL));
     cheesesteak.setLabel(svec[2]);
-    if (!m_hazard_set.hasHazard(svec[2])) m_hazard_set.addHazard(cheesesteak);
+    */
+    XYHazard haz = string2Hazard(repvec[i]);
+    haz.setType("hazard");
+    if (!m_hazard_set.hasHazard(haz.getLabel())) m_hazard_set.addHazard(haz);
   }
 
   return; 

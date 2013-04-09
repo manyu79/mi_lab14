@@ -69,6 +69,7 @@ class HazardMngr : public AppCastingMOOSApp
    bool   m_sensor_config_requested;
    bool   m_sensor_config_set;
    bool   m_slave_report_received; 
+   bool   m_detecting;
 
    unsigned int m_sensor_config_reqs;
    unsigned int m_sensor_config_acks;
@@ -80,6 +81,8 @@ class HazardMngr : public AppCastingMOOSApp
 
    double m_swath_width_granted;
    double m_pd_granted;
+
+   int m_req_flag;
 
    XYHazardSet m_hazard_set;
    XYHazardSet m_class_hazard;

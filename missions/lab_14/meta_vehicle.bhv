@@ -68,10 +68,11 @@ Behavior = BHV_Timer
 {
   name		= report_time
   pwt 		= 100
-  condition 	= DEPLOY = true
+  script_atomic = true
+  condition	= DEPLOY = true 	
   duration   	= 8950 
 
-  endflag	= TIME_OUT=true
+  endflag	= HAZARDSET_REQUEST = true
 }
 
 

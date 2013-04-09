@@ -11,14 +11,19 @@
 #include "HazardPath.h"
 #include <string>
 #include <stdlib.h>
+#include <math.h>
 
 using namespace std;
+
+std::vector< std::vector< std::vector<int> > > trackline_vec; 
+std::vector<double> m_pos; 
 
 //---------------------------------------------------------
 // Constructor
 
 HazardPath::HazardPath()
 {
+  m_num_time_repeat=1; 
 }
 
 //---------------------------------------------------------
@@ -37,6 +42,12 @@ bool HazardPath::OnNewMail(MOOSMSG_LIST &NewMail)
    
    for(p=NewMail.begin(); p!=NewMail.end(); p++) {
       CMOOSMsg &msg = *p;
+
+      if(msg.GetString()=="NAV_X"){
+	m_pos[0]=msg.GetDouble(); 
+      }else if(msg.GetString()=="NAV_Y"){
+	m_pos[1]=msg.GetDouble(); 
+      }
    }
 	
    return(true);
@@ -81,7 +92,9 @@ bool HazardPath::OnStartUp()
       }                                                             
       else if(param == "START_OFFSET") {                                  
         m_start_offset = atoi(value.c_str());    
-      }                            
+      }else if(param == "REPEAT"){
+	m_num_time_repeat=atoi(value.c_str()); 
+      }                         
     }
   } 
 
@@ -96,6 +109,8 @@ bool HazardPath::OnStartUp()
 void HazardPath::RegisterVariables()
 {
   // Register("FOOBAR", 0);
+  m_Comms.Register("NAV_X",0); 
+  m_Comms.Register("NAV_Y",0); 
 }
 
 //---------------------------------------------------------
@@ -129,7 +144,9 @@ void HazardPath::genLawnMower(int offset, int start_offset){
     xpt += offset; 
     i++; 
   }
-
+  for (int r; r<m_num_time_repeat; m_num_time_repeat++){
+    points += points; 
+  }
   points = "points="+points; 
   cout << points << endl;
   Notify("PATH_UPDATE",points); 
@@ -147,19 +164,19 @@ string HazardPath::intToString(int val)
  }
 
 
-/*std::vector<std::vector<std::vector<double> > > HazardPath::genTracklines(int swath){
+std::vector<std::vector<std::vector<int> > > HazardPath::genTracklines(int swath){
   int tl[] = {-150,-75}; 
   int ll[] = {-150,-400}; 
   int lr[] = {400, -400}; 
   int tr[] = {400,-75}; 
   int offset = 5; 
 
-  std::vector< std::vector<int>> trackline; 
+  std::vector< std::vector<int> > trackline; 
+  std::vector< std::vector< std::vector< int > > > result; 
 
 
   int num_lines=(tr[0]-tl[0]+0.5)/swath; 
     cout<<"num_lines= "<<num_lines<<endl; 
-    std::vector<std::vector<std::vector<double> > > result; 
     for(int i=0; i<=num_lines; i++){
       trackline[0][0]= swath/2.0+swath*i; 
       trackline[0][1]= tl[1]+offset; 
@@ -169,6 +186,30 @@ string HazardPath::intToString(int val)
     }
 
 return result; 
-
 }
-*/
+
+bool HazardPath::traverseTrackline(int num){
+  std::vector< std::vector<int> > trackline = trackline_vec[num]; 
+  double capture_radius = .75; 
+  std::string points= "points="; 
+  if(getDist(trackline[0],m_pos)<getDist(trackline[1],m_pos)){
+    points = points +intToString(trackline[0][0])+","+intToString(trackline[0][1])+":"; 
+    points = points +intToString(trackline[1][0])+","+intToString(trackline[1][1]);
+    m_Comms.Notify("PATH_UPDATE",points); 
+    while(getDist(trackline[1],m_pos)>capture_radius){}
+    return true; 
+  }else{
+    points = points +intToString(trackline[1][0])+","+intToString(trackline[1][1])+":"; 
+    points = points +intToString(trackline[0][0])+","+intToString(trackline[0][1]);
+    m_Comms.Notify("PATH_UPDATE",points); 
+    while(getDist(trackline[0],m_pos)>capture_radius){}
+    return true; 
+  }
+  return false;   
+}
+
+double HazardPath::getDist(std::vector<int> cat, std::vector<double> dog){
+  double mouse = pow(dog[0]-cat[0],2)+pow(dog[1]-cat[1],2); 
+  return pow(mouse,2); 
+} 
+

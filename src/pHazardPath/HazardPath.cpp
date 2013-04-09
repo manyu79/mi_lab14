@@ -147,19 +147,19 @@ string HazardPath::intToString(int val)
  }
 
 
-/*std::vector<std::vector<std::vector<double> > > HazardPath::genTracklines(int swath){
+std::vector<std::vector<std::vector<int> > > HazardPath::genTracklines(int swath){
   int tl[] = {-150,-75}; 
   int ll[] = {-150,-400}; 
   int lr[] = {400, -400}; 
   int tr[] = {400,-75}; 
   int offset = 5; 
 
-  std::vector< std::vector<int>> trackline; 
+  std::vector< std::vector<int> > trackline; 
+  std::vector< std::vector< std::vector< int > > > result; 
 
 
   int num_lines=(tr[0]-tl[0]+0.5)/swath; 
     cout<<"num_lines= "<<num_lines<<endl; 
-    std::vector<std::vector<std::vector<double> > > result; 
     for(int i=0; i<=num_lines; i++){
       trackline[0][0]= swath/2.0+swath*i; 
       trackline[0][1]= tl[1]+offset; 
@@ -171,4 +171,4 @@ string HazardPath::intToString(int val)
 return result; 
 
 }
-*/
+

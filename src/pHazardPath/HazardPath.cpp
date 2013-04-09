@@ -23,6 +23,7 @@ std::vector<double> m_pos;
 
 HazardPath::HazardPath()
 {
+  m_num_time_repeat=1; 
 }
 
 //---------------------------------------------------------
@@ -91,7 +92,9 @@ bool HazardPath::OnStartUp()
       }                                                             
       else if(param == "START_OFFSET") {                                  
         m_start_offset = atoi(value.c_str());    
-      }                            
+      }else if(param == "REPEAT"){
+	m_num_time_repeat=atoi(value.c_str()); 
+      }                         
     }
   } 
 
@@ -122,7 +125,6 @@ void HazardPath::genLawnMower(int offset, int start_offset){
   string points; 
   int xpt = tl[0]+start_offset; 
   int yoff = 10; 
-  int num_time_repeat=1; 
 
   points = points + intToString(xpt) +","+intToString(tl[1]+yoff)+":"; 
   points = points + intToString(xpt) +","+intToString(lr[1]-yoff);
@@ -142,7 +144,7 @@ void HazardPath::genLawnMower(int offset, int start_offset){
     xpt += offset; 
     i++; 
   }
-  for (int r; r<num_time_repeat; num_time_repeat++){
+  for (int r; r<m_num_time_repeat; m_num_time_repeat++){
     points += points; 
   }
   points = "points="+points; 

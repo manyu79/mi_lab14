@@ -30,6 +30,7 @@ class HazardPath : public CMOOSApp
 protected:
   int m_offset; 
   int m_start_offset; 
+  int m_num_time_repeat; 
 };
 
 #endif 

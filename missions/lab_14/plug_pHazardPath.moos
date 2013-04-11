@@ -8,4 +8,5 @@ ProcessConfig = pHazardPath
 
   offset	= $(PATH_WIDTH)
   start_offset	= $(OFFSET)
+  POLYGON	= $(POLYGON)
 }

@@ -29,7 +29,7 @@ Processconfig = ANTLER
   Run = uTimerScript	   @ NewConsole = false
 }
   
-#include plug_uFldNodeBroker.moos
+#include plug_uFldNodeBroker-sim.moos
 #include plug_pShare.moos
 #include plug_pHostInfo.moos
 #include plug_uFldMessageHandler.moos

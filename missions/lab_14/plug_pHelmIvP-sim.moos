@@ -6,7 +6,7 @@ ProcessConfig = pHelmIvP
   AppTick    = 2
   CommsTick  = 2
   
-  Behaviors    = meta_$(VNAME).bhv  
+  Behaviors    = targ_$(VNAME).bhv  
   Verbose      = false
   Domain       = course:0:359:360
   Domain       = speed:0:5:26

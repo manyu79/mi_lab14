@@ -181,7 +181,7 @@ string HazardPath::intToString(int val)
  }
 
 
-std::vector<std::vector<std::vector<int> > > HazardPath::genTracklines(int swath){
+/*std::vector<std::vector<std::vector<int> > > HazardPath::genTracklines(int swath){
   int offset = 5; 
 
   std::vector< std::vector<int> > trackline; 
@@ -225,4 +225,4 @@ double HazardPath::getDist(std::vector<int> cat, std::vector<double> dog){
   double mouse = pow(dog[0]-cat[0],2)+pow(dog[1]-cat[1],2); 
   return pow(mouse,2); 
 } 
-
+*/

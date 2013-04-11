@@ -17,6 +17,10 @@ using namespace std;
 
 std::vector< std::vector< std::vector<int> > > trackline_vec; 
 std::vector<double> m_pos; 
+int tl[2]; 
+int tr[2];
+int ll[2]; 
+int lr[2];  
 
 //---------------------------------------------------------
 // Constructor
@@ -94,7 +98,26 @@ bool HazardPath::OnStartUp()
         m_start_offset = atoi(value.c_str());    
       }else if(param == "REPEAT"){
 	m_num_time_repeat=atoi(value.c_str()); 
-      }                         
+      }else if(param == "POLYGON"){
+	vector<string> svector = parseString(value,":"); 
+	vector<string> pvector; 
+	for(vector<string>::size_type i=0; i<=svector.size(); i++){
+	  pvector=parseString(svector[i],","); 
+	    if(i==0){
+	      tl[0]=atoi(pvector[0].c_str()); 
+	      tl[1]=atoi(pvector[1].c_str()); 
+	    }else if(i==1){
+	      tr[0]=atoi(pvector[0].c_str()); 
+	      tr[1]=atoi(pvector[1].c_str()); 
+	    }else if(i==2){
+	      ll[0]=atoi(pvector[0].c_str()); 
+	      ll[1]=atoi(pvector[1].c_str());
+	    }else{
+	      lr[0]=atoi(pvector[0].c_str()); 
+	      lr[1]=atoi(pvector[1].c_str());
+	    } 
+	}
+      }                      
     }
   } 
 
@@ -116,12 +139,6 @@ void HazardPath::RegisterVariables()
 //---------------------------------------------------------
 
 void HazardPath::genLawnMower(int offset, int start_offset){
-
-  int tl[] = {-150,-75}; 
-  int ll[] = {-150,-400}; 
-  int lr[] = {400, -400}; 
-  int tr[] = {400,-75}; 
-
   string points; 
   int xpt = tl[0]+start_offset; 
   int yoff = 10; 
@@ -165,10 +182,6 @@ string HazardPath::intToString(int val)
 
 
 std::vector<std::vector<std::vector<int> > > HazardPath::genTracklines(int swath){
-  int tl[] = {-150,-75}; 
-  int ll[] = {-150,-400}; 
-  int lr[] = {400, -400}; 
-  int tr[] = {400,-75}; 
   int offset = 5; 
 
   std::vector< std::vector<int> > trackline; 

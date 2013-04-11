@@ -1,0 +1,10 @@
+ProcessConfig = iActuationKF
+{
+   AppTick	= 10
+   CommsTick 	= 10
+   Port		= /dev/KINGFISHER
+   Timeout	=6
+   ComputeHeading	= 0
+   m_verbose		= 1
+   MAX_THRUST_VALUE	= 84
+}

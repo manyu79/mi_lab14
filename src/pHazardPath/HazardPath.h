@@ -31,6 +31,13 @@ protected:
   int m_offset; 
   int m_start_offset; 
   int m_num_time_repeat; 
+
+  int tl[2]; 
+  int tr[2];
+  int ll[2]; 
+  int lr[2];  
+
+
 };
 
 #endif 

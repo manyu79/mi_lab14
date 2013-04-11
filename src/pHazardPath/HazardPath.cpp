@@ -12,22 +12,31 @@
 #include <string>
 #include <stdlib.h>
 #include <math.h>
+#include <iostream>
 
 using namespace std;
 
-std::vector< std::vector< std::vector<int> > > trackline_vec; 
-std::vector<double> m_pos; 
-int tl[2]; 
-int tr[2];
-int ll[2]; 
-int lr[2];  
 
 //---------------------------------------------------------
 // Constructor
 
 HazardPath::HazardPath()
 {
-  m_num_time_repeat=1; 
+  m_num_time_repeat = 1; 
+  //std::vector< std::vector< std::vector<int> > > trackline_vec; 
+  //std::vector<double> m_pos; 
+  
+  tl[0] = 0;
+  tl[1] = 0;
+  tr[0] = 0;
+  tr[1] = 0;
+  ll[0] = 0;
+  ll[1] = 0;
+  lr[0] = 0;
+  lr[1] = 0;
+
+    
+  
 }
 
 //---------------------------------------------------------
@@ -44,14 +53,16 @@ bool HazardPath::OnNewMail(MOOSMSG_LIST &NewMail)
 {
    MOOSMSG_LIST::iterator p;
    
+   cout << "MAIL!!!" << endl;
+
    for(p=NewMail.begin(); p!=NewMail.end(); p++) {
       CMOOSMsg &msg = *p;
 
-      if(msg.GetString()=="NAV_X"){
+      /*      if(msg.GetString()=="NAV_X"){
 	m_pos[0]=msg.GetDouble(); 
       }else if(msg.GetString()=="NAV_Y"){
 	m_pos[1]=msg.GetDouble(); 
-      }
+	}*/
    }
 	
    return(true);
@@ -62,8 +73,10 @@ bool HazardPath::OnNewMail(MOOSMSG_LIST &NewMail)
 
 bool HazardPath::OnConnectToServer()
 {
-   RegisterVariables();
-   return(true);
+
+  cout << "CONNECTED. Register?" << endl;
+  RegisterVariables();  
+  return(true);
 }
 
 //---------------------------------------------------------
@@ -82,6 +95,7 @@ bool HazardPath::Iterate()
 
 bool HazardPath::OnStartUp()
 {
+  cout << "STARTING UP!!" << endl;
   list<string> sParams;                                                                                         
   if(m_MissionReader.GetConfiguration(GetAppName(), sParams)) {         
     list<string>::iterator p;                                           
@@ -90,7 +104,8 @@ bool HazardPath::OnStartUp()
       string line = *p;                                    
       string param = stripBlankEnds(toupper(biteString(line, '=')));  
       string value = stripBlankEnds(line);
-                                                           
+                        
+      cout << "NEWPARAM" << endl;
       if(param == "OFFSET") {                                      
         m_offset = 4*atoi(value.c_str())-5;                 
       }                                                             
@@ -101,8 +116,9 @@ bool HazardPath::OnStartUp()
       }else if(param == "POLYGON"){
 	vector<string> svector = parseString(value,":"); 
 	vector<string> pvector; 
-	for(vector<string>::size_type i=0; i<=svector.size(); i++){
-	  pvector=parseString(svector[i],","); 
+	for(int i = 0; i<=svector.size(); i++){
+	  pvector=parseString(svector[i],",");
+	  cout << svector[i] << endl;
 	    if(i==0){
 	      tl[0]=atoi(pvector[0].c_str()); 
 	      tl[1]=atoi(pvector[1].c_str()); 
@@ -120,9 +136,11 @@ bool HazardPath::OnStartUp()
       }                      
     }
   } 
-
-  RegisterVariables();	
+  
+  cout << "HANDLED PARAMS" << endl;
+  cout << "LawnMower?" << endl;
   genLawnMower(m_offset,m_start_offset); 
+  cout << "RETURNING" << endl;
   return(true);
 }
 
@@ -131,6 +149,7 @@ bool HazardPath::OnStartUp()
 
 void HazardPath::RegisterVariables()
 {
+  cout << "YUP, REGISTER" << endl;
   // Register("FOOBAR", 0);
   m_Comms.Register("NAV_X",0); 
   m_Comms.Register("NAV_Y",0); 
@@ -139,6 +158,8 @@ void HazardPath::RegisterVariables()
 //---------------------------------------------------------
 
 void HazardPath::genLawnMower(int offset, int start_offset){
+
+  cout << "BOOM, STARTING LAWNMOWER" << endl;
   string points; 
   int xpt = tl[0]+start_offset; 
   int yoff = 10; 
@@ -147,8 +168,10 @@ void HazardPath::genLawnMower(int offset, int start_offset){
   points = points + intToString(xpt) +","+intToString(lr[1]-yoff);
   xpt += offset;
 
+  cout << "LAHAHASAA" << endl;
   int i = 3; 
   while(xpt<lr[0]+offset){
+    cout << "narf" << endl;
     if(i%2==0){
       points = points +":" +intToString(xpt) +","+intToString(tl[1]+yoff); 
       points = points +":" +intToString(xpt) +","+intToString(lr[1]-yoff);
@@ -161,11 +184,13 @@ void HazardPath::genLawnMower(int offset, int start_offset){
     xpt += offset; 
     i++; 
   }
-  for (int r; r<m_num_time_repeat; m_num_time_repeat++){
+  for (int r = 0; r<m_num_time_repeat; r++){
+    cout << "mooltipass!" << endl;
     points += points; 
+    cout << "narfnarf" << endl;
   }
   points = "points="+points; 
-  cout << points << endl;
+  cout << "NOTIFYINGGGGGGG" << endl;
   Notify("PATH_UPDATE",points); 
 
   return; 

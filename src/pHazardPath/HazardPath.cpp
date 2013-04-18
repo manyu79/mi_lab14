@@ -25,7 +25,8 @@ HazardPath::HazardPath()
   m_num_time_repeat = 1; 
   //std::vector< std::vector< std::vector<int> > > trackline_vec; 
   //std::vector<double> m_pos; 
-  
+  m_offset = 20;
+  m_start_offset = 5;
   tl[0] = 0;
   tl[1] = 0;
   tr[0] = 0;
@@ -118,21 +119,27 @@ bool HazardPath::OnStartUp()
       }else if(param == "POLYGON"){
 	vector<string> svector = parseString(value,":"); 
 	vector<string> pvector; 
-	for(int i = 0; i<=svector.size(); i++){
-	  pvector=parseString(svector[i],",");
-	  cout << svector[i] << endl;
+	for(int i = 0; i<svector.size(); i++){
+	  pvector = parseString(svector[i],",");
+	  cout << svector[i] << " " << i << endl;
 	    if(i==0){
+	      cout << "1" << endl;
 	      tl[0]=atoi(pvector[0].c_str()); 
 	      tl[1]=atoi(pvector[1].c_str()); 
 	    }else if(i==1){
+	      cout << "2" << endl;
 	      tr[0]=atoi(pvector[0].c_str()); 
 	      tr[1]=atoi(pvector[1].c_str()); 
 	    }else if(i==2){
+	      cout << "3" << endl;
 	      ll[0]=atoi(pvector[0].c_str()); 
 	      ll[1]=atoi(pvector[1].c_str());
 	    }else{
+	      cout << "4 or more" << endl;
 	      lr[0]=atoi(pvector[0].c_str()); 
 	      lr[1]=atoi(pvector[1].c_str());
+	      cout << svector[0] << endl;
+	      cout << "fnar" << endl;
 	    } 
 	}
       }                      

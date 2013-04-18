@@ -7,5 +7,11 @@ ProcessConfig = pHazardPath
 {
    AppTick   = 4
    CommsTick = 4
+
+   offset	= 5
+   start_offset	= 0
+   POLYGON	= -40,-70:-40,-170:160,-170:160,-70
+
+
 }
 

@@ -85,6 +85,8 @@ bool HazardPath::OnConnectToServer()
 bool HazardPath::Iterate()
 {
    // happens AppTick times per second
+
+  std::cout<<"running"<<std::endl; 
 	
    return(true);
 }
@@ -177,17 +179,17 @@ void HazardPath::genLawnMower(int offset, int start_offset){
       points = points +":" +intToString(xpt) +","+intToString(lr[1]-yoff);
     }
     else
-      {
-	points = points +":" +intToString(xpt) +","+intToString(lr[1]-yoff);      
-	points = points +":" +intToString(xpt) +","+intToString(tl[1]+yoff); 
-      }
+    {
+      points = points +":" +intToString(xpt) +","+intToString(lr[1]-yoff);      
+      points = points +":" +intToString(xpt) +","+intToString(tl[1]+yoff); 
+    }
     xpt += offset; 
     i++; 
   }
-  for (int r = 0; r<m_num_time_repeat; r++){
-    cout << "mooltipass!" << endl;
+
+  for (int r=1; r<m_num_time_repeat; r++){
     points += points; 
-    cout << "narfnarf" << endl;
+    cout << "mooltipass" << endl;
   }
   points = "points="+points; 
   cout << "NOTIFYINGGGGGGG" << endl;
@@ -205,8 +207,8 @@ string HazardPath::intToString(int val)
    return(str);
  }
 
-
-/*std::vector<std::vector<std::vector<int> > > HazardPath::genTracklines(int swath){
+/*
+std::vector<std::vector<std::vector<int> > > HazardPath::genTracklines(int swath){
   int offset = 5; 
 
   std::vector< std::vector<int> > trackline; 
@@ -245,6 +247,7 @@ bool HazardPath::traverseTrackline(int num){
   }
   return false;   
 }
+
 
 double HazardPath::getDist(std::vector<int> cat, std::vector<double> dog){
   double mouse = pow(dog[0]-cat[0],2)+pow(dog[1]-cat[1],2); 

@@ -1,4 +1,4 @@
-//--------------------------------------------------------
+A1;2802;0c//--------------------------------------------------------
 // uProcessWatch Configuration Block (Created from Plugin)
 
 ProcessConfig = uProcessWatch
@@ -10,7 +10,7 @@ ProcessConfig = uProcessWatch
 
   WATCH_ALL = true
 
-  WATCH  = uSimMarine
+//  WATCH  = uSimMarine
   WATCH  = pShare*
 //  WATCH  = pLogger
   WATCH  = pNodeReporter

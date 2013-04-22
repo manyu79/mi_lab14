@@ -1,6 +1,6 @@
 ServerHost = localhost
 ServerPort = $(VPORT)
-Simulator  = true
+Simulator  = false
 
 // Community name IS the vehicle name
 Community  = $(VNAME)

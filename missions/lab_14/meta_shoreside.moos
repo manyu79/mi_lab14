@@ -35,7 +35,7 @@ ProcessConfig = pShare
   AppTick    = 2
   CommsTick  = 2
 
-  input = route = localhost:9300 & multicast_8
+  input = route = localhost:9300 & multicast_9
 }
 
 
@@ -164,6 +164,6 @@ ProcessConfig = pMarineViewer
 
 
   button_three   = REQ_REPORT  # HAZARDSET_REQUEST_ALL=true
-  button_four	 = MOOS_MANUAL_OVERIDE_ALL=true
+  button_four	 = ALL_STOP #MOOS_MANUAL_OVERIDE_ALL=true
 }
 

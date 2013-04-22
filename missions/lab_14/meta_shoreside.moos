@@ -162,6 +162,8 @@ ProcessConfig = pMarineViewer
   button_one   = HAZARD_SEARCH_START=true
   button_two   = RETURN_ALL  # RETURN_ALL=true
 
+
   button_three   = REQ_REPORT  # HAZARDSET_REQUEST_ALL=true
+  button_four	 = MOOS_MANUAL_OVERIDE_ALL=true
 }
 

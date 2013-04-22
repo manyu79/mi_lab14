@@ -51,19 +51,6 @@ Behavior = BHV_Waypoint
         points = $(START_POS)
 }
 
-//----------------------------------------------
-Behavior = BHV_ConstantDepth
-{
-  name      = bhv_const_depth_b
-  pwt       = 60
-  duration  = no-time-limit
-  condition = DEPLOY = true
-
-        depth = 5
-    peakwidth = 3
-    basewidth = 2
-  summitdelta = 20
-}
 
 //----------------------------------------------
 Behavior = BHV_AvoidCollision

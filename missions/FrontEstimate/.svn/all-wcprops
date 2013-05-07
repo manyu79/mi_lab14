@@ -1,0 +1,173 @@
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/moos-ivp-aro/!svn/ver/5738/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline
+END
+plug_uFldCTDSensor.moos
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_uFldCTDSensor.moos
+END
+launch_vehicle.sh
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/moos-ivp-aro/!svn/ver/5685/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/launch_vehicle.sh
+END
+launch.sh
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/moos-ivp-aro/!svn/ver/5714/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/launch.sh
+END
+plug_origin_warp.moos
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_origin_warp.moos
+END
+plug_pShare.moos
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_pShare.moos
+END
+plug_iGPS_KF.moos
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/moos-ivp-aro/!svn/ver/5738/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_iGPS_KF.moos
+END
+plug_pBasicContactMgr.moos
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_pBasicContactMgr.moos
+END
+plug_pHelmIvP.moos
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_pHelmIvP.moos
+END
+launch_shoreside.sh
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/launch_shoreside.sh
+END
+clean.sh
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/clean.sh
+END
+plug_pMarinePID.moos
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_pMarinePID.moos
+END
+plug_pNodeReporter.moos
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_pNodeReporter.moos
+END
+plug_iActuationKF_betty.moos
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/moos-ivp-aro/!svn/ver/5738/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_iActuationKF_betty.moos
+END
+plug_uTimerScript.moos
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_uTimerScript.moos
+END
+plug_uProcessWatch.moos
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_uProcessWatch.moos
+END
+plug_uFldHazardMgr.moos
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_uFldHazardMgr.moos
+END
+plug_iActuationKF_archie.moos
+K 25
+svn:wc:ra_dav:version-url
+V 131
+/svn/moos-ivp-aro/!svn/ver/5738/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_iActuationKF_archie.moos
+END
+plug_uFldMessageHandler.moos
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_uFldMessageHandler.moos
+END
+meta_vehicle.moos
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/moos-ivp-aro/!svn/ver/5678/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/meta_vehicle.moos
+END
+plug_pLogger.moos
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_pLogger.moos
+END
+plug_iOS5000.moos
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/moos-ivp-aro/!svn/ver/5738/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_iOS5000.moos
+END
+meta_vehicle.bhv
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/moos-ivp-aro/!svn/ver/5678/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/meta_vehicle.bhv
+END
+plug_pFrontEstimate.moos
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/moos-ivp-aro/!svn/ver/5685/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_pFrontEstimate.moos
+END
+meta_shoreside.moos
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/moos-ivp-aro/!svn/ver/5731/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/meta_shoreside.moos
+END
+plug_uFldNodeBroker.moos
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_uFldNodeBroker.moos
+END
+plug_pHandleCTD.moos
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_pHandleCTD.moos
+END
+plug_pHostInfo.moos
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_pHostInfo.moos
+END
+plug_uSimMarine.moos
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/moos-ivp-aro/!svn/ver/5668/branches-public/moos-ivp-2680/ivp/missions/lab_frontestimate_baseline/plug_uSimMarine.moos
+END

@@ -52,7 +52,7 @@ Behavior = BHV_Circle
   endflag   = SURVEY = false
 
         radius = 80.0
-	arc    = 360
+	arc    = 720
 	center = 55,-100
 }
 

@@ -172,7 +172,6 @@ IvPFunction *BHV_Front::buildFunctionWithZAIC()
 // updateSensorData();
 void BHV_Front::updateSensorData(){
   bool ok1; 
-  cout<<"update sensor"<<endl; 
   string str = getBufferStringVal("UCTD_MSMNT_REPORT",ok1); 
   str = stripBlankEnds(str); 
   vector<string> vals = parseString(str,","); 
@@ -184,7 +183,6 @@ void BHV_Front::updateSensorData(){
     }else if(param=="y"){
       m_new_pos[1]=strtod(value.c_str(),NULL); 
     }else if(param=="temp"){
-      cout<<value<<endl; 
       m_temp[0]=m_temp[1]; 
       m_temp[1]=strtod(value.c_str(),NULL); 
     }
@@ -195,10 +193,8 @@ void BHV_Front::updateSensorData(){
 //dx_delay(); 
 bool BHV_Front::dx_delay(double delay, double *init_time){
   if(getBufferCurrTime()-*init_time>=delay){
-    //postWMessage("ballz"); 
     return true; 
   }else{
-    postWMessage("nuts"); 
     return false; 
   }
 }
@@ -213,7 +209,11 @@ void BHV_Front::keepFront(){
   }else if(m_temp[1]<=m_t_cold){
     m_head = 180.0; 
   }else {
-    m_head = 90; 
+    if(m_new_pos[0]>160.0){
+      m_head = 270.0; 
+    }else if(m_new_pos[0]<-100.0){
+      m_head = 90.0; 
+    }
     m_speed = .75; 
   }
   return; 

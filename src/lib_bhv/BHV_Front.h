@@ -39,7 +39,8 @@ public:
 protected:
   void         updateSensorData();  
   IvPFunction* buildFunctionWithZAIC();
-  bool         dx_delay(double, double *);  
+  bool         dx_delay(double, double *);
+  void         keepFront(); 
 
 protected: // Configuration parameters
   double m_Kp; 

@@ -11,7 +11,7 @@ ProcessConfig = pHelmIvP
   Domain       = course:0:359:360
   Domain       = speed:0:5:26
 
-  IVP_BEHAVIOR_DIR = /Users/dxyazdi/moos-ivp-dxyazdi/lib
+  IVP_BEHAVIOR_DIR = ../../src/lib_bhv
 
 #ifdef VTYPE UUV
   Domain       = depth:0:10:101

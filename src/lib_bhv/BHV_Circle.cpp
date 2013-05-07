@@ -49,13 +49,14 @@ BHV_Circle::BHV_Circle(IvPDomain gdomain) :
   m_radius = 0;
   m_range = 0;
   m_startang = 0;
+  m_presc_ang = 0;
   m_ang = 0;
   m_send = true;
   m_arc  = 360;
 
   m_priority_wt = 100;
 
-  m_raderr = 0.2;
+  m_raderr = 1;
   m_angerr = 20;
 
   addInfoVars("NAV_X, NAV_Y, NAV_HEADING");
@@ -98,6 +99,14 @@ void BHV_Circle::onIdleState()
 }
 
 //-----------------------------------------------------------
+
+void BHV_Circle::onIdleToRunState()
+{
+  m_presc_ang = 0;
+  m_ang = 0;
+  m_startang = -1;
+}
+//-----------------------------------------------------------
 // Procedure: onRunState
 
 IvPFunction* BHV_Circle::onRunState() 
@@ -107,6 +116,7 @@ IvPFunction* BHV_Circle::onRunState()
   if((m_range >= m_radius-m_raderr) && (m_range <= m_radius+m_raderr) && (m_startang == -1)){
     cout << "[CIRC] Latched! Angle: " << m_ang << endl;
     m_startang = m_ang;
+    m_presc_ang = 0;
   }
 
   if((m_startang != -1) && (m_presc_ang >= m_arc-m_angerr)){
@@ -151,12 +161,15 @@ void BHV_Circle::updateState()
   m_range = pow(pow(m_osx-m_cenx,2) + pow(m_osy-m_ceny,2),0.5);
   double prev_ang = m_ang;
   m_ang   = relAng(m_osx,m_osy,m_cenx,m_ceny);
+  double diff = m_ang-prev_ang;
   
-  if (m_ang-prev_ang>=0) m_presc_ang += m_ang-prev_ang;
-  else m_presc_ang -= m_ang-prev_ang;
-
+  if (diff<0) diff = -1*diff;
+  if (diff>(m_radius/2)) diff = m_radius/2;
+  if (m_ang != 0) m_presc_ang += diff;
+  
+  cout << "[CIRC] Cur: " << m_ang << " Prev: " << prev_ang << " Presc: " << m_presc_ang << endl;
+  postMessage("M_PRESC",m_presc_ang);
 }
-
 //-----------------------------------------------------------
 // Procedure: buildFunctionWithZAIC
 

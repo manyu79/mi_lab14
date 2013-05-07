@@ -31,6 +31,8 @@ Processconfig = ANTLER
   //Run =pHandleCTD	   @ NewConsole=true
   Run = pBasicContactMgr   @ NewConsole = false
 
+  Run = uXMS		   @ NewConsole = true
+
   4 = -geometry,80x10+20+950,-bg,purple,-fg,white
 
 }
@@ -53,3 +55,13 @@ Processconfig = ANTLER
 #include plug_uProcessWatch.moos
 
 #include plug_pBasicContactMgr.moos
+
+ProcessConfig = uXMS
+{
+  AppTick   = 1
+  CommsTick = 1
+
+  var = M_PRESC, SURVEY
+
+}
+  

@@ -34,6 +34,7 @@ public:
   
   bool         setParam(std::string, std::string);
   void         onIdleState();
+  void         onIdleToRunState();
   IvPFunction* onRunState();
 
 protected:

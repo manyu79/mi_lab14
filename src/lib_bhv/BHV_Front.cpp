@@ -56,7 +56,8 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_t_cold = 19.75; 
   m_speed = 1.0; 
 
-  addInfoVars("UCTD_SENSOR_REPORT","no_warning");
+  addInfoVars("UCTD_SENSOR_REPORT");
+  addInfoVars("UCTD_SENSOR_REQUEST"); 
 }
 
 //---------------------------------------------------------------
@@ -170,7 +171,7 @@ IvPFunction *BHV_Front::buildFunctionWithZAIC()
 // updateSensorData();
 void BHV_Front::updateSensorData(){
   bool ok1; 
-  string str = getBufferStringVal("UCTD_SENSOR_REQUEST",ok1); 
+  string str = getBufferStringVal("UCTD_SENSOR_REPORT",ok1); 
   str = stripBlankEnds(str); 
   vector<string> vals = parseString(str,","); 
   for(vector<string>::size_type i=0; i<vals.size(); i++){

@@ -104,10 +104,13 @@ IvPFunction* BHV_Circle::onRunState()
 {
   updateState();
 
-  if((m_range >= m_radius-m_raderr) && (m_range <= m_radius+m_raderr) && (m_startang == -1))
+  if((m_range >= m_radius-m_raderr) && (m_range <= m_radius+m_raderr) && (m_startang == -1)){
+    cout << "[CIRC] Latched! Angle: " << m_ang << endl;
     m_startang = m_ang;
+  }
 
   if((m_startang != -1) && (m_presc_ang >= m_arc-m_angerr)){
+    cout << "[CIRC] Breakaway! Angle Prescribed: " << m_presc_ang << endl;
     m_presc_ang = 0;
     m_startang = -1;
     m_send = false;
@@ -125,7 +128,7 @@ IvPFunction* BHV_Circle::onRunState()
     ipf->setPWT(m_priority_wt);
   if(m_send)
     return(ipf);
-  else return(NULL);
+  else setComplete();
 
 }
 //-----------------------------------------------------------
@@ -133,7 +136,7 @@ IvPFunction* BHV_Circle::onRunState()
 
 void BHV_Circle::updateState()
 {
-  //  cout << "[CIRC] Update" << endl;
+  cout << "[CIRC] Update" << endl;
   bool ok1,ok2,ok3;
   m_osx = getBufferDoubleVal("NAV_X",ok1);
   m_osy = getBufferDoubleVal("NAV_Y",ok2);

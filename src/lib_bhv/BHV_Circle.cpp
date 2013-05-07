@@ -119,7 +119,7 @@ IvPFunction* BHV_Circle::onRunState()
     m_presc_ang = 0;
   }
 
-  if((m_startang != -1) && (m_presc_ang >= m_arc-m_angerr)){
+  if(m_presc_ang >= m_arc-m_angerr){
     cout << "[CIRC] Breakaway! Angle Prescribed: " << m_presc_ang << endl;
     m_presc_ang = 0;
     m_startang = -1;

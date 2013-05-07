@@ -11,7 +11,7 @@ ProcessConfig = pHelmIvP
   Domain       = course:0:359:360
   Domain       = speed:0:5:26
 
-  IVP_BEHAVIOR_DIR = /home/abelani/MIT/mi_14/lib
+  //IVP_BEHAVIOR_DIR = /home/abelani/MIT/mi_lab14/lib
 
 #ifdef VTYPE UUV
   Domain       = depth:0:10:101

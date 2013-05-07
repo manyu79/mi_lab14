@@ -55,7 +55,7 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_t_hot = 20.0; 
   m_t_cold = 17.0; 
 
-  addInfoVars("UCTD_SENSOR_REPORT");
+  addInfoVars("UCTD_SENSOR_REPORT","no_warning");
 }
 
 //---------------------------------------------------------------

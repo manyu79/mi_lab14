@@ -30,7 +30,7 @@ START_POS1="0,0"
 nsplug meta_kf.moos kf_$VNAME1.moos -f WARP=$TIME_WARP  \
    VNAME=$VNAME1      START_POS=$START_POS1                    \
    VPORT="9001"       SHARE_LISTEN="9302"                      \
-   VTYPE=UUV          SHORE_LISTEN=$SHORE_LISTEN               \
+   VTYPE=KAYAK        SHORE_LISTEN=$SHORE_LISTEN               \
    MASTER="false"     OFFSET="0"                               \
    WIDTH="5"          PATH_WIDTH="5"                           \
    PD="0.95"          POLYGON="-40,-70:-40,-170:160,-170:160,-70"

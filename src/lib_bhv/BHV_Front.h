@@ -41,6 +41,7 @@ protected:
   IvPFunction* buildFunctionWithZAIC();
   bool         dx_delay(double, double *);
   void         keepFront(); 
+  double       min_dhead(); 
 
 protected: // Configuration parameters
   double m_Kp; 
@@ -56,6 +57,7 @@ protected: // State variables
   double   m_old_pos[2]; 
   double   m_new_pos[2]; 
   bool     m_first_run; 
+  double   m_dir[4];
 
   double   m_timer1; 
 };

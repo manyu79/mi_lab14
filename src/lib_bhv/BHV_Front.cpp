@@ -55,7 +55,8 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_first_run = true; 
   m_t_hot = 23; 
   m_t_cold = 21; 
-  m_speed = 1.0; 
+  m_speed = 2.0; 
+  m_head = 135; 
 
   addInfoVars("UCTD_MSMNT_REPORT");
   // addInfoVars("UCTD_SENSOR_REQUEST"); 
@@ -205,16 +206,18 @@ bool BHV_Front::dx_delay(double delay, double *init_time){
 void BHV_Front::keepFront(){
   updateSensorData(); 
   if(m_temp[1]>=m_t_hot){
-    m_head = 0.0; 
+    m_head=min_dhead(m_dir[0],m_dir[3]); 
   }else if(m_temp[1]<=m_t_cold){
-    m_head = 180.0; 
-  }else {
-    if(m_new_pos[0]>160.0){
-      m_head = 270.0; 
-    }else if(m_new_pos[0]<-100.0){
-      m_head = 90.0; 
-    }
-    m_speed = .75; 
+    m_head=min_dhead(m_dir[1],m_dir[2]); 
+  }else if(m_new_pos[0]>160){
+    m_head=min_dhead(m_dir[2],m_dir[3]); 
+  }else if(m_new_pos[0]<-90.0){
+    m_head=min_dhead(m_dir[0],m_dir[1]); 
   }
   return; 
+}
+
+
+double min_dhead(double cat, double dog){
+
 }

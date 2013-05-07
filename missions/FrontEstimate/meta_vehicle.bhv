@@ -29,10 +29,21 @@ set MODE = CHAR_FRONT {
 }
 
 //----------------------------------------------
+Behavior = BHV_ConstantSpeed
+{
+  name = surveyspeed
+  pwt  = 80
+  condition = MODE==FIND_FRONT
+  perpetual = true
+  speed = 2
+  
+}
+
+//----------------------------------------------
 Behavior = BHV_Circle
 { 
   name      = circle
-  pwt       = 100
+  pwt       = 80
   condition = MODE==FIND_FRONT
   perpetual = true
   updates   = SURVEY_UPDATES

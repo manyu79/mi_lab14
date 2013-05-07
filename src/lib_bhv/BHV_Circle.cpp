@@ -27,7 +27,7 @@
 #include "AngleUtils.h"
 #include "BuildUtils.h"
 #include "ZAIC_PEAK.h"
-
+#include <iostream>
 
 using namespace std;
 
@@ -107,7 +107,7 @@ IvPFunction* BHV_Circle::onRunState()
   if((m_range >= m_radius-m_raderr) && (m_range <= m_radius+m_raderr) && (m_startang == -1))
     m_startang = m_ang;
 
-  if((m_startang != -1) && (m_presc_ang >= m_arc-m_angerr) && (m_presc_ang <= m_arc+m_angerr))
+  if((m_startang != -1) && (m_presc_ang >= m_arc-m_angerr))
     m_send = false;
 
   double rel_course = 180 - (90/m_radius)*(m_range);
@@ -130,6 +130,7 @@ IvPFunction* BHV_Circle::onRunState()
 
 void BHV_Circle::updateState()
 {
+  cout << "[CIRC] Update" << endl;
   bool ok1,ok2,ok3;
   m_osx = getBufferDoubleVal("NAV_X",ok1);
   m_osy = getBufferDoubleVal("NAV_Y",ok2);

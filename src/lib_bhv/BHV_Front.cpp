@@ -54,6 +54,7 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_first_run = true; 
   m_t_hot = 23.75; 
   m_t_cold = 19.75; 
+  m_speed = 1.0; 
 
   addInfoVars("UCTD_SENSOR_REPORT","no_warning");
 }

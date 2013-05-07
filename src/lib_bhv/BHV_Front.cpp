@@ -209,6 +209,7 @@ void BHV_Front::keepFront(){
     m_head = 0.0; 
   }else {
     m_head = 90; 
+    m_speed = .75; 
   }
   return; 
 }

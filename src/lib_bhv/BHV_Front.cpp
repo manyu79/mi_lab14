@@ -104,16 +104,9 @@ IvPFunction *BHV_Front::onRunState()
   }
   */
 
-  if(){
 
-  }else{
-
-  }
-
-  
-
+  keepFront();
   m_speed = 2.0; 
-  m_head = 90; 
   IvPFunction *ipf = buildFunctionWithZAIC(); 
   return(ipf); 
   /*
@@ -203,4 +196,19 @@ bool BHV_Front::dx_delay(double delay, double *init_time){
     postWMessage("nuts"); 
     return false; 
   }
+}
+
+
+//-------------------------------------------------------
+//keepFront()
+void BHV_Front::keepFront(){
+  updateSensorData(); 
+  if(m_temp[1]>=m_t_hot){
+    m_head = 90.0; 
+  }else if(m_temp[1]<=m_t_cold){
+    m_head = 0.0; 
+  }else {
+    m_head = 90; 
+  }
+  return; 
 }

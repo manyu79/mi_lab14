@@ -30,6 +30,7 @@
 #include "OF_Coupler.h"
 #include "OF_Reflector.h"
 #include "XYRangePulse.h"
+#include <iostream>
 
 
 
@@ -52,12 +53,12 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_new_pos[1] = 0.0; 
   m_timer1 = 0.0;
   m_first_run = true; 
-  m_t_hot = 23.75; 
-  m_t_cold = 19.75; 
+  m_t_hot = 23; 
+  m_t_cold = 21; 
   m_speed = 1.0; 
 
-  addInfoVars("UCTD_SENSOR_REPORT");
-  addInfoVars("UCTD_SENSOR_REQUEST"); 
+  addInfoVars("UCTD_MSMNT_REPORT");
+  // addInfoVars("UCTD_SENSOR_REQUEST"); 
 }
 
 //---------------------------------------------------------------
@@ -171,7 +172,8 @@ IvPFunction *BHV_Front::buildFunctionWithZAIC()
 // updateSensorData();
 void BHV_Front::updateSensorData(){
   bool ok1; 
-  string str = getBufferStringVal("UCTD_SENSOR_REPORT",ok1); 
+  cout<<"update sensor"<<endl; 
+  string str = getBufferStringVal("UCTD_MSMNT_REPORT",ok1); 
   str = stripBlankEnds(str); 
   vector<string> vals = parseString(str,","); 
   for(vector<string>::size_type i=0; i<vals.size(); i++){
@@ -182,6 +184,7 @@ void BHV_Front::updateSensorData(){
     }else if(param=="y"){
       m_new_pos[1]=strtod(value.c_str(),NULL); 
     }else if(param=="temp"){
+      cout<<value<<endl; 
       m_temp[0]=m_temp[1]; 
       m_temp[1]=strtod(value.c_str(),NULL); 
     }
@@ -206,9 +209,9 @@ bool BHV_Front::dx_delay(double delay, double *init_time){
 void BHV_Front::keepFront(){
   updateSensorData(); 
   if(m_temp[1]>=m_t_hot){
-    m_head = 90.0; 
-  }else if(m_temp[1]<=m_t_cold){
     m_head = 0.0; 
+  }else if(m_temp[1]<=m_t_cold){
+    m_head = 180.0; 
   }else {
     m_head = 90; 
     m_speed = .75; 

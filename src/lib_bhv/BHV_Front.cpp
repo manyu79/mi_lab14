@@ -197,7 +197,6 @@ void BHV_Front::updateSensorData(){
 }
 
 //---------------------------------------------------------
-//dx_delay(); 
 bool BHV_Front::dx_delay(double delay, double *init_time){
   if(getBufferCurrTime()-*init_time>=delay){
     return true; 
@@ -205,10 +204,7 @@ bool BHV_Front::dx_delay(double delay, double *init_time){
     return false; 
   }
 }
-
-
 //-------------------------------------------------------
-//keepFront()
 void BHV_Front::keepFront(){
   updateSensorData(); 
   if(m_temp[1]>=m_t_hot){
@@ -223,8 +219,7 @@ void BHV_Front::keepFront(){
   }
   return; 
 }
-
-
+//----------------------------------------------------------
 double BHV_Front::min_dhead(double cat, double dog){
   if(abs(cat-m_head)>=abs(dog-m_head)){
     return dog; 
@@ -232,3 +227,14 @@ double BHV_Front::min_dhead(double cat, double dog){
     return cat; 
   }
 }
+//--------------------------------------------------------
+void BHV_Front::computeGrad(){
+  updateSensorData(); 
+  double dx=m_new_pos[0]-m_old_pos[0]; 
+  double dy=m_new_pos[1]-m_old_pos[1];
+  double dT=m_temp[1]-m_temp[0]; 
+  m_grad[0]=dT/dx; 
+  m_grad[1]=dT/dy; 
+}
+//------------------------------------------------------------
+

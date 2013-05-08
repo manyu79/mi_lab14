@@ -58,6 +58,12 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_speed = 2.0; 
   m_head = 135; 
 
+  double i_ang=45.0; 
+  m_dir[0]=i_ang; 
+  m_dir[1]=i_ang+90.0; 
+  m_dir[2]=i_ang+2.0*90.0;
+  m_dir[3]=i_ang+3.0*90.0; 
+
   addInfoVars("UCTD_MSMNT_REPORT");
   // addInfoVars("UCTD_SENSOR_REQUEST"); 
 }
@@ -218,6 +224,10 @@ void BHV_Front::keepFront(){
 }
 
 
-double min_dhead(double cat, double dog){
-
+double BHV_Front::min_dhead(double cat, double dog){
+  if(abs(cat-m_head)>=abs(dog-m_head)){
+    return dog; 
+  }else{
+    return cat; 
+  }
 }

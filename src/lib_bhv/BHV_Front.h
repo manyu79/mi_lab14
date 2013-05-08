@@ -41,7 +41,7 @@ protected:
   IvPFunction* buildFunctionWithZAIC();
   bool         dx_delay(double, double *);
   void         keepFront(); 
-  double       min_dhead(); 
+  double       min_dhead(double, double); 
 
 protected: // Configuration parameters
   double m_Kp; 

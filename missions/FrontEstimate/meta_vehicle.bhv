@@ -130,12 +130,12 @@ Behavior = BHV_AvoidCollision
 // BHV_Front
 Behavior=BHV_Front
 {
-name = Front
-condition  = MODE==CHAR_FRONT
+  name = Front
+  condition  = MODE==CHAR_FRONT
 
-kp  = 1.0
-kd  = 2.0
-
-endflag = SURVEY_UNDERWAY = false
+  kp = 1.0
+  kd = 2.0
+  activeflag   = SURVEY_UNDERWAY = true
+  inactiveflag   = SURVEY_UNDERWAY = false
 }
 			

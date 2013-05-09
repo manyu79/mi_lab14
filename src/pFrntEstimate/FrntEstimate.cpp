@@ -253,8 +253,8 @@ bool CFrntEstimate::Iterate()
     }
 
   if (!report_sent && 
-      ((concurrent && completed) || 
-       (!concurrent && anneal_step == cooling_steps)))
+      ((concurrent && completed 
+	) || (!concurrent && anneal_step == cooling_steps)))
     {
       vector<double> result;
       anneal.getEstimate(result);
@@ -268,12 +268,12 @@ bool CFrntEstimate::Iterate()
       T_N  =       result[7];
       T_S  =       result[8];
       
-
+      postParameterReport();
       report_sent = true;
       new_anneal_report=true;
     }
   
-  postParameterReport();
+
 
   AppCastingMOOSApp::PostReport();
   return(true);
@@ -304,6 +304,7 @@ bool CFrntEstimate::OnNewMail(MOOSMSG_LIST &NewMail)
 	  anneal.addMeas(buf);
 	  num_meas += 1;
 	  MOOSTrace("New measurement added, Total = %d\n", num_meas);
+	  report_sent =false;
 	}
       else if (rMsg.m_sKey == "SURVEY_UNDERWAY")
 	{

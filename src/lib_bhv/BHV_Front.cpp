@@ -58,7 +58,7 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_speed = 2.0; 
   m_head = 0.0; 
 
-  double i_ang=15; 
+  double i_ang=25; 
   m_dir[0]=i_ang; 
   m_dir[1]=180-i_ang; 
   m_dir[2]=i_ang+180;

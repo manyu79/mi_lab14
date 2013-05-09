@@ -111,35 +111,37 @@ void BHV_Circle::onIdleToRunState()
 
 IvPFunction* BHV_Circle::onRunState() 
 {
+  //  cout << endl << "1";
   updateState();
-
+  cout << "2";
   if((m_range >= m_radius-m_raderr) && (m_range <= m_radius+m_raderr) && (m_startang == -1)){
     cout << "[CIRC] Latched! Angle: " << m_ang << endl;
     m_startang = m_ang;
     m_presc_ang = 0;
   }
-
+  cout << "3";
   if(m_presc_ang >= m_arc-m_angerr){
     cout << "[CIRC] Breakaway! Angle Prescribed: " << m_presc_ang << endl;
     m_presc_ang = 0;
     m_startang = -1;
     m_send = false;
   }
-
+  cout << "4";
   double rel_course = 180 - (90/m_radius)*(m_range);
   if (rel_course<0) rel_course = 0;
-  
+  cout << "5";
   IvPFunction *ipf = 0;
-
+  cout << "6";
   int ang = (double)(m_ang+rel_course);
   ipf = buildCourseWithZAIC(ang % 360);
-
+  cout << "7";
   if(ipf)
     ipf->setPWT(m_priority_wt);
   if(m_send)
     return(ipf);
   else setComplete();
-
+  cout << " done" << endl;
+  return(NULL);
 }
 //-----------------------------------------------------------
 // Procedure; updateState

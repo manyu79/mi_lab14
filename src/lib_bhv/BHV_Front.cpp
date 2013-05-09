@@ -53,8 +53,8 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_new_pos[1] = 0.0; 
   m_timer1 = 0.0;
   m_first_run = true; 
-  m_t_hot = 23.5; 
-  m_t_cold = 21.5; 
+  m_t_hot = 22.75; 
+  m_t_cold = 22.25; 
   m_speed = 2.0; 
   m_head = 0.0; 
 

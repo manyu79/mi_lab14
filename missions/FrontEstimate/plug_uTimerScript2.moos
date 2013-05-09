@@ -1,0 +1,14 @@
+ProcessConfig = uTimerScript2
+{
+  AppTick   = 4
+  CommsTick = 4
+  
+  PAUSED     = false
+  condition  = DEPLOY = true
+
+//RANDVAR = varname=X, min=0,  max=100, key=at_reset
+  //RANDVAR = varname=Y, min=0,  max=100, key=at_reset
+  //EVENT = var=NODE_MESSAGE_LOCAL, val="src_node=$(VNAME),dest_node=all,var_name=FOOBAR,string_val=$[X],$[Y]", time=0:30 
+
+  EVENT = var=RETURN, val=true, time=425 
+}

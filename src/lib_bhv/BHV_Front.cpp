@@ -60,7 +60,7 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
 
   double i_ang=30; 
   m_dir[0]=i_ang; 
-  m_dir[1]=180_i_ang; 
+  m_dir[1]=180-i_ang; 
   m_dir[2]=i_ang+180;
   m_dir[3]=360-i_ang; 
 

@@ -42,7 +42,7 @@ protected:
   bool         dx_delay(double, double *);
   void         keepFront(); 
   double       min_dhead(double, double); 
-  void         computeGrad()
+  void         computeGrad(); 
 
 protected: // Configuration parameters
   double m_Kp; 
@@ -60,7 +60,6 @@ protected: // State variables
   bool     m_first_run; 
   double   m_dir[4];
   double   m_grad[2]; 
-
   double   m_timer1; 
 };
 

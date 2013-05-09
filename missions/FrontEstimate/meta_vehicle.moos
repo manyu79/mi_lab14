@@ -32,6 +32,7 @@ Processconfig = ANTLER
   Run = pBasicContactMgr   @ NewConsole = false
 
   Run = uXMS		   @ NewConsole = true
+  Run = uTimerScript       @ NewConsole = false ~ uTimerScript2
 
   4 = -geometry,80x10+20+950,-bg,purple,-fg,white
 
@@ -55,6 +56,7 @@ Processconfig = ANTLER
 #include plug_uProcessWatch.moos
 
 #include plug_pBasicContactMgr.moos
+#include plug_uTimerScript2.moos
 
 ProcessConfig = uXMS
 {

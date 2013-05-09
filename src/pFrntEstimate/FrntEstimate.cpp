@@ -1,7 +1,7 @@
 /*****************************************************************/
 /*    NAME: Henrik Schmidt                                       */
 /*    ORGN: MIT Cambridge MA                                     */
-/*    FILE: FrontEstimate.cpp                                 */
+/*    FILE: FrntEstimate.cpp                                 */
 /*    DATE: Aug. 2, 2008                                         */
 /*                                                               */
 /* This program is free software; you can redistribute it and/or */
@@ -20,7 +20,7 @@
 /* Boston, MA 02111-1307, USA.                                   */
 /*****************************************************************/
 
-#include "FrontEstimate.h"
+#include "FrntEstimate.h"
 
 #include <iostream>
 #include <sstream>
@@ -29,7 +29,7 @@
 using namespace std;
 
 
-CFrontEstimate::CFrontEstimate()
+CFrntEstimate::CFrntEstimate()
 {
   num_param = 9;
   num_meas = 0;
@@ -62,11 +62,11 @@ CFrontEstimate::CFrontEstimate()
   max_T_S = 30; 
 }
 
-CFrontEstimate::~CFrontEstimate()
+CFrntEstimate::~CFrntEstimate()
 {
 }
 
-bool CFrontEstimate::OnStartUp()
+bool CFrntEstimate::OnStartUp()
 {
   AppCastingMOOSApp::OnStartUp();
   string sVal;
@@ -222,7 +222,7 @@ bool CFrontEstimate::OnStartUp()
   return(true);
 }
 
-bool CFrontEstimate::OnConnectToServer()
+bool CFrntEstimate::OnConnectToServer()
 {
   m_Comms.Register("SURVEY_UNDERWAY",0);
   m_Comms.Register("UCTD_MSMNT_REPORT",0);
@@ -232,7 +232,7 @@ bool CFrontEstimate::OnConnectToServer()
 }
 
 
-bool CFrontEstimate::Iterate()
+bool CFrntEstimate::Iterate()
 {
   AppCastingMOOSApp::Iterate();
   double curr_time = MOOSTime();
@@ -283,7 +283,7 @@ bool CFrontEstimate::Iterate()
 //-------------------------------------------------------------
 // Procedure: OnNewMail
 
-bool CFrontEstimate::OnNewMail(MOOSMSG_LIST &NewMail)
+bool CFrntEstimate::OnNewMail(MOOSMSG_LIST &NewMail)
 
 {
   AppCastingMOOSApp::OnNewMail(NewMail);
@@ -329,7 +329,7 @@ bool CFrontEstimate::OnNewMail(MOOSMSG_LIST &NewMail)
   return(true);
 }
 
-void CFrontEstimate::postParameterReport()
+void CFrntEstimate::postParameterReport()
 {
   string sval;
   sval = "vname=" + vname;
@@ -346,10 +346,10 @@ void CFrontEstimate::postParameterReport()
 }
 
 
-bool CFrontEstimate::buildReport()
+bool CFrntEstimate::buildReport()
 {
   
-  m_msgs<<"CFrontEstimate report"<<endl;
+  m_msgs<<"CFrntEstimate report"<<endl;
   m_msgs<<"____________________"<<endl;
   //if there is a new estimate, publish:
   //  if (new_anneal_report){

@@ -1,5 +1,5 @@
 #--------------------------------------------------------
-# The CMakeLists.txt for:                  pFrontEstimate
+# The CMakeLists.txt for:                  pFrntEstimate
 # Author(s):                               Henrik Schmidt
 #--------------------------------------------------------
 

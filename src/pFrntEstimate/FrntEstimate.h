@@ -1,7 +1,7 @@
 /*****************************************************************/
 /*    NAME: Henrik Schmidt                                       */
 /*    ORGN: MIT Cambridge MA                                     */
-/*    FILE: FrontEstimate.h                                 */
+/*    FILE: FrntEstimate.h                                 */
 /*    DATE: Aug. 2, 2008                                         */
 /*                                                               */
 /* This program is free software; you can redistribute it and/or */
@@ -32,11 +32,11 @@
 #include "MOOS/libMOOS/Thirdparty/AppCasting/AppCastingMOOSApp.h"
 
 
-class CFrontEstimate : public AppCastingMOOSApp
+class CFrntEstimate : public AppCastingMOOSApp
 {
  public:
-  CFrontEstimate();
-  virtual ~CFrontEstimate();
+  CFrntEstimate();
+  virtual ~CFrntEstimate();
 
   bool Iterate();
   bool OnNewMail(MOOSMSG_LIST &NewMail);

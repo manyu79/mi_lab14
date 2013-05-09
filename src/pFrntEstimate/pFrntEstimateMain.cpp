@@ -1,5 +1,5 @@
 
-#include "FrontEstimate.h"
+#include "FrntEstimate.h"
 int main(int argc , char * argv[])
 {
   const char * sMissionFile = "Mission.moos";
@@ -8,9 +8,9 @@ int main(int argc , char * argv[])
     sMissionFile = argv[1];
   }
   
-  CFrontEstimate MSim;
+  CFrntEstimate MSim;
   
-  MSim.Run("pFrontEstimate", sMissionFile);
+  MSim.Run("pFrntEstimate", sMissionFile);
   
   return 0;
 }

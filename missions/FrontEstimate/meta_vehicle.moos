@@ -17,7 +17,7 @@ Processconfig = ANTLER
   //Run = pLogger            @ NewConsole = false
   Run = pNodeReporter      @ NewConsole = false
   Run = pMarinePID         @ NewConsole = false
-//  Run = pHelmIvP           @ NewConsole = true
+  Run = pHelmIvP           @ NewConsole = true
   Run = uProcessWatch      @ NewConsole = false
 
   Run = pShare             @ NewConsole = false
@@ -26,13 +26,13 @@ Processconfig = ANTLER
   Run = uFldMessageHandler @ NewConsole = false
   
   Run = uTimerScript       @ NewConsole = false
-  Run=pFrntEstimate 	   @ NewConsole=false
+  Run = pFrntEstimate 	   @ NewConsole = false
 //  Run = pFrontEstimate     @ NewConsole = true, XConfig=4
   //Run =pHandleCTD	   @ NewConsole=true
   Run = pBasicContactMgr   @ NewConsole = false
 
   Run = uXMS		   @ NewConsole = true
-  Run = uTimerScript       @ NewConsole = false ~ uTimerScript2
+//  Run = uTimerScript       @ NewConsole = false ~ uTimerScript2
 
   4 = -geometry,80x10+20+950,-bg,purple,-fg,white
 
@@ -56,7 +56,7 @@ Processconfig = ANTLER
 #include plug_uProcessWatch.moos
 
 #include plug_pBasicContactMgr.moos
-#include plug_uTimerScript2.moos
+//#include plug_uTimerScript2.moos
 
 ProcessConfig = uXMS
 {

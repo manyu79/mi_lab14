@@ -270,7 +270,7 @@ bool CFrntEstimate::Iterate()
       
       postParameterReport();
       report_sent = true;
-      new_anneal_report=true;
+      new_anneal_report=false;
     }
   
 

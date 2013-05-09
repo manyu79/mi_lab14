@@ -28,7 +28,7 @@ Processconfig = ANTLER
   Run = uTimerScript       @ NewConsole = false
   Run = pFrntEstimate 	   @ NewConsole = false
 //  Run = pFrontEstimate     @ NewConsole = true, XConfig=4
-  //Run =pHandleCTD	   @ NewConsole=true
+//  Run =pHandleCTD	   @ NewConsole=true
   Run = pBasicContactMgr   @ NewConsole = false
 
   Run = uXMS		   @ NewConsole = true

@@ -6,7 +6,7 @@ ProcessConfig = pShare
   AppTick    = 2
   CommsTick  = 2
 
-  input = route =  localhost:$(SHARE_LISTEN)
+  input = route =  localhost:$(SHARE_LISTEN) & multicast_6
 
   // =======================================================
   // Usage Info below

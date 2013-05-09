@@ -54,15 +54,15 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_timer1 = 0.0;
   m_first_run = true; 
   m_t_hot = 23.5; 
-  m_t_cold = 20.5; 
+  m_t_cold = 21.5; 
   m_speed = 2.0; 
-  m_head = 135; 
+  m_head = 0.0; 
 
-  double i_ang=35.0; 
+  double i_ang=15; 
   m_dir[0]=i_ang; 
-  m_dir[1]=i_ang+90.0; 
-  m_dir[2]=i_ang+2.0*90.0;
-  m_dir[3]=i_ang+3.0*90.0; 
+  m_dir[1]=180-i_ang; 
+  m_dir[2]=i_ang+180;
+  m_dir[3]=360-i_ang; 
 
   addInfoVars("UCTD_MSMNT_REPORT");
   // addInfoVars("UCTD_SENSOR_REQUEST"); 

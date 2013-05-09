@@ -16,6 +16,7 @@ INCLUDE_DIRECTORIES(${LOCAL_LIBRARY_DIRS})
 #============================================================================
 ADD_SUBDIRECTORY(uFldHazardMngr)
 ADD_SUBDIRECTORY(pHazardPath)
+ADD_SUBDIRECTORY(pFrntEstimate)
 ADD_SUBDIRECTORY(lib_bhv)
 
 ##############################################################################

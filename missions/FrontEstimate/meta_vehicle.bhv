@@ -88,7 +88,7 @@ Behavior = BHV_OpRegion
   visual_hints = edge_size=1, vertex_size=2
 }
 
-//----------------------------------------------
+/*//----------------------------------------------
 Behavior = BHV_ConstantDepth
 {
   name      = bhv_const_depth_b
@@ -100,7 +100,8 @@ Behavior = BHV_ConstantDepth
     peakwidth = 3
     basewidth = 2
   summitdelta = 20
-}
+}*/
+
 
 //------------------------------------------------
 Behavior = BHV_AvoidCollision

@@ -1,0 +1,16 @@
+//----------------------------------------------------
+// pEchoVar Configuration Block
+
+ProcessConfig = pEchoVar
+{
+  AppTick    = 2
+  CommsTick  = 2
+
+  echo = GPS_LATITUDE    -> NAV_LAT
+  echo = GPS_LONGITUDE   -> NAV_LONG
+  echo = GPS_SPEED       -> NAV_SPEED
+  echo = COMPASS_HEADING -> NAV_HEADING
+  echo = GPS_X		 -> NAV_X
+  echo = GPS_Y		 -> NAV_Y
+
+}

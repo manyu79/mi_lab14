@@ -65,6 +65,9 @@ class CFrntEstimate : public AppCastingMOOSApp
   double beta;
   double T_N;
   double T_S;
+  double stat_T_N;
+  double stat_T_S;
+  
   double temperature;
   // Partnering Parameters
   double p_offset;
@@ -78,6 +81,7 @@ class CFrntEstimate : public AppCastingMOOSApp
   double p_T_S;
   double p_temperature;
 
+  bool first_report;
   bool partner_report;
   bool master;
 

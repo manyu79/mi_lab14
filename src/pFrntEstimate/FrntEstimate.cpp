@@ -75,7 +75,11 @@ CFrntEstimate::CFrntEstimate()
   wt_T_N = 1;
   wt_T_S = 1;
   wt_temperature = 1;
-  
+
+
+  stat_T_N = 20;
+  stat_T_S = 25;
+  first_report = true;
 }
 
 CFrntEstimate::~CFrntEstimate()
@@ -378,8 +382,18 @@ void CFrntEstimate::postParameterToPartner()
   sval += ";wavelength=" + doubleToString(wavelength);
   sval += ";alpha=" + doubleToString(alpha);
   sval += ";beta=" + doubleToString(beta);
-  sval += ";tempnorth=" + doubleToString(T_N);
-  sval += ";tempsouth=" + doubleToString(T_S);
+  
+  if (first_report){
+    sval += ";tempnorth=" + doubleToString(T_N);
+    stat_T_N = T_N;
+    sval += ";tempsouth=" + doubleToString(T_S);
+    stat_T_S = T_S;
+    first_report = false;
+  }
+  else{
+    sval += ";tempnorth=" + doubleToString(stat_T_N);
+    sval += ";tempsouth=" + doubleToString(stat_T_S);
+  }
   string lval;
   lval = "src_node=" + vname + ",dest_node=all,var_name=PARTNER_REPORT,string_val=" + sval;
   m_Comms.Notify("NODE_MESSAGE_LOCAL",lval);
@@ -423,8 +437,8 @@ void CFrntEstimate::postParameterReport()
       sval += ",wavelength=" + doubleToString(wavelength);
       sval += ",alpha=" + doubleToString(alpha);
       sval += ",beta=" + doubleToString(beta);
-      sval += ",tempnorth=" + doubleToString(T_N);
-      sval += ",tempsouth=" + doubleToString(T_S);    
+      sval += ",tempnorth=" + doubleToString(stat_T_N);
+      sval += ",tempsouth=" + doubleToString(stat_T_S);    
     }
     else{
       cout << endl;
@@ -436,8 +450,8 @@ void CFrntEstimate::postParameterReport()
       sval += ",wavelength=" + doubleToString((p_wavelength*wt_wavelength+wavelength)/(1+wt_wavelength));
       sval += ",alpha=" + doubleToString((alpha*wt_alpha+p_alpha)/(1+wt_alpha));
       sval += ",beta=" + doubleToString((p_beta+beta*wt_beta)/(1+wt_beta));
-      sval += ",tempnorth=" + doubleToString((p_T_N+T_N*wt_T_N)/(1+wt_T_N));
-      sval += ",tempsouth=" + doubleToString((p_T_S+T_S*wt_T_S)/(1+wt_T_S));
+      sval += ",tempnorth=" + doubleToString((p_T_N+stat_T_N*wt_T_N)/(1+wt_T_N));
+      sval += ",tempsouth=" + doubleToString((p_T_S+stat_T_S*wt_T_S)/(1+wt_T_S));
     }
     m_Comms.Notify("UCTD_PARAMETER_ESTIMATE",sval);
     cout << "Sending to Shore" << endl;

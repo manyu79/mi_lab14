@@ -56,8 +56,10 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_head = 0.0; 
   m_x_max = 160;
   m_x_min = -90; 
+  m_first_run = true; 
  
   addInfoVars("UCTD_MSMNT_REPORT");
+  addInfoVars("T_HOT, T_COLD"); 
 }
 
 //---------------------------------------------------------------
@@ -102,6 +104,12 @@ void BHV_Front::onIdleState()
 
 IvPFunction *BHV_Front::onRunState() 
 {
+
+  if(m_first_run){
+    getTemps(); 
+    m_first_run = false; 
+  }
+
   keepFront();
   m_speed = 2.0; 
   IvPFunction *ipf = buildFunctionWithZAIC(); 
@@ -182,6 +190,23 @@ void BHV_Front::keepFront(){
   }
   return; 
 }
+//--------------------------------------------------------
+void BHV_Front::getTemps(){
+  bool ok1; 
+  string str = getBufferStringVal("T_HOT",ok1); 
+  str = stripBlankEnds(str); 
+  str = biteString(str, '='); 
+  string value = str; 
+  m_t_hot = strtod(value.c_str(),NULL); 
+  str = getBufferStringVal("T_COLD",ok1); 
+  str = stripBlankEnds(str); 
+  str = biteString(str, '='); 
+  value = str; 
+  m_t_cold = strtod(value.c_str(),NULL); 
+  m_t_avg = (m_t_hot + m_t_cold)/2.0;
+  return; 
+}
+
 //----------------------------------------------------------
 double BHV_Front::min_dhead(double cat, double dog){
   if(abs(cat-m_head)>=abs(dog-m_head)){

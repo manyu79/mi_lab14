@@ -41,7 +41,8 @@ protected:
   IvPFunction* buildFunctionWithZAIC();
   //bool         dx_delay(double, double *);
   void         keepFront(); 
-  double       min_dhead(double, double); 
+  double       min_dhead(double, double);
+  void         getTemps(); 
   //void         computeGrad(); 
 
 protected: // Configuration parameters
@@ -50,6 +51,7 @@ protected: // Configuration parameters
 
 protected: // State variables
   double   m_speed;
+  bool     m_first_run; 
   double   m_ang;
   double   m_off; 
   double   m_head;

@@ -12,6 +12,11 @@
 #
 #   Output: a tar'ed file ../<kerbosid>_lab<labnumber>.tar
 #
+
+
+	# AY edited April 18, 2013
+	#     Changed IP address from hard-coded to a user-entered variable
+
 import sys
 import os
 class SubmitInfo:
@@ -72,9 +77,9 @@ def getInputs(useOld=True):
     oldinput=checkOldSubmit()
     newInput=True
     if oldinput != None:
-        if 'email' in oldinput.keys() and 'lname' in oldinput.keys() and 'fname' in oldinput.keys():
+        if 'email' in oldinput.keys() and 'lname' in oldinput.keys() and 'fname' in oldinput.keys() and 'ipaddress' in oldinput.keys():
             email=oldinput['email']
-            
+            ipaddress=oldinput['ipaddress']
             lname=oldinput['lname']
             fname=oldinput['fname']
             newInput=False
@@ -82,6 +87,7 @@ def getInputs(useOld=True):
         email=raw_input('Please input your E-mail address: ')
         fname=raw_input('Please input your First Name: ')
         lname=raw_input('Please input your Last Name: ')
+        ipaddress=raw_input('IP address or hostname of the MOOS submit server: ')
     username=email.split('@')[0]
     print '\nChoices for mission directories are: '
     mylist=os.listdir('missions/')
@@ -101,11 +107,12 @@ def getInputs(useOld=True):
     print >> storefile,'email=' + str(email)
     print >> storefile,'fname='+str(fname)
     print >> storefile,'lname='+str(lname)
+    print >> storefile,'ipaddress='+str(ipaddress)
     storefile.close()
     #copy the missiondir specified to missions/current
     os.system('mkdir missions/current; cp -r missions/'+missiondir +'/*.bhv missions/' + missiondir +'/*.moos missions/'+missiondir + '/*.sh missions/current/')
     #moosdir=raw_input('Please input the path to your MOOS directory you want zipped up and sent (e.g. /home/efischell/moos-ivp-extend/):')
-    existFields=SubmitInfo([['username',username],['passcode',''],['email',email],['missiondir',missiondir],['lname',lname],['fname',fname]])
+    existFields=SubmitInfo([['username',username],['passcode',''],['email',email],['missiondir',missiondir],['lname',lname],['fname',fname],['ipaddress',ipaddress]])
     return existFields
 
 def confirmMOOSStructure(moosdir):
@@ -150,7 +157,7 @@ def submitCode(existFields,lab_number,run_scp):
     tarfile='../'+username+'_lab' + str(lab_number)+'.tar.gz'
     #confirm that the required structure is there (there must be a src directory and a missions directory)
     good=confirmMOOSStructure(moospath)
-    print '\nTarring your directory now...'
+    print """\nTar'ing your directory now..."""
     
     #todo: construct the excludes from a list of directories/files to exclude
     os.system('tar --directory=../ --exclude ".svn" --exclude "'+moosdir+'/bin/*" ' +'--exclude "'+moosdir+ '/build/*" '+'--exclude "'+moosdir+ '/lib/*" '+'--exclude "'+moosdir+ '/missions/*/LOG*" -czf ' + tarfile + ' ' + moosdir)
@@ -161,9 +168,8 @@ def submitCode(existFields,lab_number,run_scp):
     
 def runSCP(tarFileName,existFields):
     #run scp, using the username and a static password already entered.  This will send the zipped folder.
-    #todo: implement the scp function in this@128.30.31.10:
 
-    success=os.system('scp '+ tarFileName+' student@128.30.31.48: <<student')
+    success=os.system('scp '+ tarFileName+' student@' + existFields['ipaddress'] + ': <<student')
     if success==0:
         return True
     else:
@@ -178,7 +184,12 @@ def main(run_scp):
     
     good=False
     while not good:
-        print '\nUsing the following fields: email = '+str(existFields['email']) + ', username = ' + str(existFields['username']) + ', missions_dir=' + str(existFields['missiondir']) + ', moosdir='+str(existFields['moosdir'])
+        print '\nUsing the following fields:'
+        print '                              email        = ' + str(existFields['email'])
+        print '                              moosdir      = ' + str(existFields['moosdir'])
+        print '                              username     = ' + str(existFields['username'])
+        print '                              IP address   = ' + str(existFields['ipaddress'])
+        print '                              missions_dir = ' + str(existFields['missiondir'])
         new=raw_input('\nAre these Correct? Y/N ' )
         if new=='N' or new == 'n':
             existFields=getInputs(False)
@@ -207,5 +218,4 @@ if (len(sys.argv)>1):
         print 'unrecognized flag: only allowable are -h (help) or -tar_only (tar only, no scp)'
 else:
     main(True)
-        
 

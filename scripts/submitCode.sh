@@ -20,7 +20,7 @@ do
 	echo ''
 	echo 'Function: submitCode.py checks for correct structure, '
 	echo 'then creats a tar.gz file without executables, temporary files, or logs.'
-	echo 'It then submits the result to student@128.30.31.10: via scp'
+	echo 'It then submits the result to student@IPADDRESS: via scp'
 	echo ''
   fi
 done

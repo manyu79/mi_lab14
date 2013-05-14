@@ -57,9 +57,10 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
   m_x_max = 160;
   m_x_min = -90; 
   m_first_run = true; 
+  m_iter = 0; 
  
   addInfoVars("UCTD_MSMNT_REPORT");
-  addInfoVars("T_HOT, T_COLD"); 
+  addInfoVars("T_NORTH, T_SOUTH"); 
 }
 
 //---------------------------------------------------------------
@@ -109,10 +110,14 @@ IvPFunction *BHV_Front::onRunState()
 {
 
   if(m_first_run){
-    //getTemps(); 
-    m_first_run = false; 
+    getTemps(); 
+    m_iter++; 
+    if(m_iter>100){
+    m_first_run = false;
+    } 
   }
 
+  //getTemps(); 
   keepFront();
   m_speed = 2.0; 
   IvPFunction *ipf = buildFunctionWithZAIC(); 

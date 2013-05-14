@@ -49,6 +49,7 @@ protected: // Configuration parameters
   double m_x_max; 
   double m_x_min; 
   string m_name;
+  int    m_iter; 
 
 protected: // State variables
   double   m_speed;

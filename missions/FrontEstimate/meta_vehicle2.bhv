@@ -116,8 +116,8 @@ Behavior = BHV_AvoidCollision
 
              contact = to-be-set
     on_no_contact_ok = true
-         extrapolate = true
-               decay = 30,60
+         extrapolate = false
+               decay = 5,10
 
         pwt_outer_dist = 50
         pwt_inner_dist = 20
@@ -137,7 +137,7 @@ Behavior=BHV_Front
 
   angle = 40
   offset = .05
-  x_max = 180.0
+  x_max = 160.0
   x_min = -50.0
   vname = $(VNAME)
 

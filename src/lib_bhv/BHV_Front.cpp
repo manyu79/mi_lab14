@@ -194,12 +194,12 @@ void BHV_Front::keepFront(){
 //--------------------------------------------------------
 void BHV_Front::getTemps(){
   bool ok1; 
-  string str = getBufferStringVal("T_HOT",ok1); 
+  string str = getBufferStringVal("T_SOUTH",ok1); 
   str = stripBlankEnds(str); 
   str = biteString(str, '='); 
   string value = str; 
   m_t_hot = strtod(value.c_str(),NULL); 
-  str = getBufferStringVal("T_COLD",ok1); 
+  str = getBufferStringVal("T_NORTH",ok1); 
   str = stripBlankEnds(str); 
   str = biteString(str, '='); 
   value = str; 

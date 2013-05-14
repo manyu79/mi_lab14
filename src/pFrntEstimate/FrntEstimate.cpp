@@ -429,15 +429,15 @@ void CFrntEstimate::postParameterReport()
     else{
       cout << endl;
       sval = "vname=" + vname;
-      sval += ",offset=" + doubleToString((offset*wt_offset+p_offset)/(1+wt_offset));
-      sval += ",angle=" + doubleToString((angle*wt_angle+p_angle)/(1+wt_angle));
-      sval += ",amplitude=" + doubleToString((amplitude*wt_amplitude+p_amplitude)/(1+wt_amplitude));
-      sval += ",period=" + doubleToString((period*wt_period+p_period)/(1+wt_period));
-      sval += ",wavelength=" + doubleToString((p_wavelength*wt_wavelength+wavelength)/(1+wt_wavelength));
-      sval += ",alpha=" + doubleToString((alpha*wt_alpha+p_alpha)/(1+wt_alpha));
-      sval += ",beta=" + doubleToString((p_beta+beta*wt_beta)/(1+wt_beta));
-      sval += ",tempnorth=" + doubleToString((p_T_N+T_N*wt_T_N)/(1+wt_T_N));
-      sval += ",tempsouth=" + doubleToString((p_T_S+T_S*wt_T_S)/(1+wt_T_S));
+      sval += ",offset=" + doubleToString(offset*wt_offset+p_offset*(1-wt_offset));
+      sval += ",angle=" + doubleToString(angle*wt_angle+p_angle*(1-wt_angle));
+      sval += ",amplitude=" + doubleToString(amplitude*wt_amplitude+p_amplitude*(1-wt_amplitude));
+      sval += ",period=" + doubleToString(period*wt_period+p_period*(1-wt_period));
+      sval += ",wavelength=" + doubleToString(p_wavelength*(1-wt_wavelength)+wavelength*wt_wavelength);
+      sval += ",alpha=" + doubleToString(alpha*wt_alpha+p_alpha*(1-wt_alpha));
+      sval += ",beta=" + doubleToString(p_beta*(1-wt_beta)+beta*wt_beta);
+      sval += ",tempnorth=" + doubleToString(p_T_N*(1-wt_T_N)+T_N*wt_T_N);
+      sval += ",tempsouth=" + doubleToString(p_T_S*(1-wt_T_S)+T_S*wt_T_S);
     }
     m_Comms.Notify("UCTD_PARAMETER_ESTIMATE",sval);
     cout << "Sending to Shore" << endl;

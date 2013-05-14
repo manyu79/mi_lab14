@@ -88,19 +88,20 @@ Behavior = BHV_OpRegion
   visual_hints = edge_size=1, vertex_size=2
 }
 
-/*//----------------------------------------------
-Behavior = BHV_ConstantDepth
-{
-  name      = bhv_const_depth_b
-  pwt       = 60
-  duration  = no-time-limit
-  condition = DEPLOY = true
+//----------------------------------------------
 
-        depth = 5
-    peakwidth = 3
-    basewidth = 2
-  summitdelta = 20
-}*/
+//Behavior = BHV_ConstantDepth
+//{
+//  name      = bhv_const_depth_b
+//  pwt       = 60
+//  duration  = no-time-limit
+//  condition = DEPLOY = true
+//
+//        depth = 5
+//    peakwidth = 3
+//    basewidth = 2
+//  summitdelta = 20
+//}
 
 
 //------------------------------------------------
@@ -134,8 +135,11 @@ Behavior=BHV_Front
   name = Front
   condition  = MODE==CHAR_FRONT
 
-  kp = 1.0
-  kd = 2.0
+  angle = 10.0
+  offset = 0.25
+  x_max = 180.0
+  x_min = -50.0
+
   activeflag   = SURVEY_UNDERWAY = true
   inactiveflag   = SURVEY_UNDERWAY = false
 }

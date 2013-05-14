@@ -69,7 +69,7 @@ bool BHV_Front::setParam(string param, string val)
   param = tolower(param);
 
   double double_val = atof(val.c_str());
-  if((param == "ang") && (isNumber(val))) {
+  if((param == "angle") && (isNumber(val))) {
     m_ang = double_val;
     m_dir[0]=m_ang; 
     m_dir[1]=180-m_ang; 
@@ -79,6 +79,12 @@ bool BHV_Front::setParam(string param, string val)
   }
   else if((param == "offset") && (isNumber(val))) {
     m_off = double_val;
+    return(true);
+  }else if((param == "x_max") && (isNumber(val))) {
+    m_x_max = double_val;
+    return(true);
+  }else if((param == "x_min") && (isNumber(val))) {
+    m_x_min = double_val;
     return(true);
   }
   return(false);

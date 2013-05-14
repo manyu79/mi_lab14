@@ -4,7 +4,7 @@ initialize   DEPLOY  = false
 initialize   RETURN  = false
 initialize   STATION_KEEP = false
 initialize   SURVEY  = false
-initialize   AVOID   = true
+initialize   AVOID   = false
 initialize   SURVEY_UNDERWAY = true
 initialize   OPREGION = false
 set MODE = ACTIVE {
@@ -139,6 +139,7 @@ Behavior=BHV_Front
   offset = .5
   x_max = 160.0
   x_min = -80.0
+  vname = $(VNAME)
 
   activeflag   = SURVEY_UNDERWAY = true
   inactiveflag   = SURVEY_UNDERWAY = false

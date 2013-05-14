@@ -67,11 +67,11 @@ CFrntEstimate::CFrntEstimate()
   // Weights: These are the weights (relative to 1) for the master vehicle.
   wt_offset = 1;
   wt_angle = 1;
-  wt_amplitude = 1;
-  wt_period = 1;
-  wt_wavelength = 1;
+  wt_amplitude = 0;
+  wt_period = 0;
+  wt_wavelength = 0;
   wt_alpha = 1;
-  wt_beta = 1;
+  wt_beta = 0;
   wt_T_N = 1;
   wt_T_S = 1;
   wt_temperature = 1;

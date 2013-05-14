@@ -135,10 +135,10 @@ Behavior=BHV_Front
   name = Front
   condition  = MODE==CHAR_FRONT
 
-  angle = 45
-  offset = .5
-  x_max = 160.0
-  x_min = -80.0
+  angle = 60
+  offset = .75
+  x_max = 180.0
+  x_min = -50.0
   vname = $(VNAME)
 
   activeflag   = SURVEY_UNDERWAY = true

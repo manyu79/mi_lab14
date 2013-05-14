@@ -135,7 +135,7 @@ Behavior=BHV_Front
   name = Front
   condition  = MODE==CHAR_FRONT
 
-  angle = 50
+  angle = 40
   offset = .05
   x_max = 180.0
   x_min = -50.0

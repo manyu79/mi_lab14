@@ -51,7 +51,7 @@ Behavior = BHV_Circle
   inactiveflag   = SURVEY_UNDERWAY = false
   endflag   = SURVEY = true
 
-        radius = 75
+        radius = 65
 	arc    = 180
 	center = 80,-90
 }
@@ -135,8 +135,8 @@ Behavior=BHV_Front
   name = Front
   condition  = MODE==CHAR_FRONT
 
-  angle = 60
-  offset = .75
+  angle = 50
+  offset = .65
   x_max = 180.0
   x_min = -50.0
   vname = $(VNAME)

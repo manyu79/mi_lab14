@@ -4,9 +4,9 @@ initialize   DEPLOY  = false
 initialize   RETURN  = false
 initialize   STATION_KEEP = false
 initialize   SURVEY  = false
-initialize   AVOID   = false
+initialize   AVOID   = true
 initialize   SURVEY_UNDERWAY = true
-initialize   OPREGION = false
+initialize   OPREGION = true
 set MODE = ACTIVE {
   DEPLOY = true
 } INACTIVE

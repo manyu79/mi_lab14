@@ -4,7 +4,7 @@
 #-------------------------------------------------------
 TIME_WARP=1
 JUST_MAKE="no"
-VNAME="archie"
+VNAME="vehicle1"
 COOL_FAC=50
 COOL_STEPS=1000
 CONCURRENT="true"
@@ -68,7 +68,7 @@ nsplug meta_vehicle.moos targ_$VNAME.moos -f WARP=$TIME_WARP  \
    VTYPE=KAYAK          COOL_FAC=$COOL_FAC  COOL_STEPS=$COOL_STEPS\
    CONCURRENT=$CONCURRENT  ADAPTIVE=$ADAPTIVE
 
-nsplug meta_vehicle.bhv targ_$VNAME.bhv -f VNAME=$VNAME      \
+nsplug meta_$VNAME.bhv targ_$VNAME.bhv -f VNAME=$VNAME      \
     START_POS=$START_POS SURVEY_X=$SURVEY_X SURVEY_Y=$SURVEY_Y \
         HEIGHT=$HEIGHT1   WIDTH=$WIDTH1 LANE_WIDTH=$LANE_WIDTH1 \
         DEGREES=$DEGREES1

@@ -106,7 +106,7 @@ IvPFunction *BHV_Front::onRunState()
 {
 
   if(m_first_run){
-    getTemps(); 
+    //getTemps(); 
     m_first_run = false; 
   }
 
@@ -163,6 +163,7 @@ void BHV_Front::updateSensorData(){
       m_temp[1]=strtod(value.c_str(),NULL); 
     }
   }
+  postWMessage("Temp: "+doubleToString(m_temp[1],5)); 
 }
 
 //---------------------------------------------------------

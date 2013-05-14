@@ -108,7 +108,7 @@ Behavior = BHV_OpRegion
 Behavior = BHV_AvoidCollision
 {
   name       = avdcollision_
-  pwt        = 200
+  pwt        = 150
   condition  = AVOID=true
   updates    = CONTACT_INFO
   endflag    = CONTACT_RESOLVED = $[CONTACT]
@@ -134,8 +134,9 @@ Behavior=BHV_Front
 {
   name = Front
   condition  = MODE==CHAR_FRONT
+  pwt = 100
 
-  angle = 40
+  angle = 45
   offset = .05
   x_max = 150.0
   x_min = -50.0

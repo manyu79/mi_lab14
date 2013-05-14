@@ -31,7 +31,7 @@ Processconfig = ANTLER
 //  Run =pHandleCTD	   @ NewConsole=true
   Run = pBasicContactMgr   @ NewConsole = false
 
-  Run = uXMS		   @ NewConsole = true
+  Run = uXMS		   @ NewConsole = false
   Run = uTimerScript       @ NewConsole = false ~ uTimerScript2
 
   4 = -geometry,80x10+20+950,-bg,purple,-fg,white

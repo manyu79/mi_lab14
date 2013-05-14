@@ -53,7 +53,7 @@ Behavior = BHV_Circle
 
         radius = 65
 	arc    = 180
-	center = 55,-90
+	center = 120,-90
 }
 //-------------------------------------------------
 Behavior = BHV_Waypoint
@@ -137,7 +137,7 @@ Behavior=BHV_Front
 
   angle = 40
   offset = .05
-  x_max = 160.0
+  x_max = 150.0
   x_min = -50.0
   vname = $(VNAME)
 

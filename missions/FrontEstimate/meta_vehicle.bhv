@@ -47,7 +47,7 @@ Behavior = BHV_Circle
   condition = MODE==FIND_FRONT
   perpetual = true
   updates   = SURVEY_UPDATES
-  activeflag   = SURVEY_UNDERWAY = true
+//  activeflag   = SURVEY_UNDERWAY = true
   inactiveflag   = SURVEY_UNDERWAY = false
   endflag   = SURVEY = true
 

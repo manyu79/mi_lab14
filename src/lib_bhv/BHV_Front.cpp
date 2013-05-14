@@ -162,17 +162,17 @@ void BHV_Front::updateSensorData(){
     if (param == "vname"){
       if (value == m_name){
 	vee_name = true; 
-    }if(param=="x"){
+      }
+    }if(param=="x" && vee_name){
       m_new_pos[0]=strtod(value.c_str(),NULL); 
-    }else if(param=="y"){
+    }else if(param=="y" && vee_name){
       m_new_pos[1]=strtod(value.c_str(),NULL); 
-    }else if(param=="temp"){
+    }else if(param=="temp" && vee_name){
       m_temp[0]=m_temp[1]; 
       m_temp[1]=strtod(value.c_str(),NULL); 
     }
   }
-  }
-  cout<<"Temp: "<<doubleToString(m_temp[1],5)<<endl; 
+  cout<<"v_name: "<<m_name<<endl; 
 }
 
 //---------------------------------------------------------

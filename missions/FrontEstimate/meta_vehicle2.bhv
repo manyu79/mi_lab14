@@ -53,7 +53,7 @@ Behavior = BHV_Circle
 
         radius = 35
 	arc    = 180
-	center = 55,-100
+	center = 55,-90
 }
 //-------------------------------------------------
 Behavior = BHV_Waypoint
@@ -135,8 +135,8 @@ Behavior=BHV_Front
   name = Front
   condition  = MODE==CHAR_FRONT
 
-  angle = 60.0
-  offset = .25
+  angle = 70
+  offset = .1
   x_max = 180.0
   x_min = -50.0
 

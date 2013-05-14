@@ -51,9 +51,9 @@ Behavior = BHV_Circle
   inactiveflag   = SURVEY_UNDERWAY = false
   endflag   = SURVEY = true
 
-        radius = 80
+        radius = 75
 	arc    = 180
-	center = 95,-65
+	center = 80,-90
 }
 //-------------------------------------------------
 Behavior = BHV_Waypoint
@@ -135,10 +135,10 @@ Behavior=BHV_Front
   name = Front
   condition  = MODE==CHAR_FRONT
 
-  angle = 10.0
-  offset = 1.25
-  x_max = 180.0
-  x_min = -50.0
+  angle = 45
+  offset = .5
+  x_max = 160.0
+  x_min = -80.0
 
   activeflag   = SURVEY_UNDERWAY = true
   inactiveflag   = SURVEY_UNDERWAY = false

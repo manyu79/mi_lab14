@@ -39,28 +39,29 @@ public:
 protected:
   void         updateSensorData();  
   IvPFunction* buildFunctionWithZAIC();
-  bool         dx_delay(double, double *);
+  //bool         dx_delay(double, double *);
   void         keepFront(); 
   double       min_dhead(double, double); 
-  void         computeGrad(); 
+  //void         computeGrad(); 
 
 protected: // Configuration parameters
-  double m_Kp; 
-  double m_Kd; 
+  double m_x_max; 
+  double m_x_min; 
 
 protected: // State variables
   double   m_speed;
+  double   m_ang;
+  double   m_off; 
   double   m_head;
   double   m_t_hot; 
   double   m_t_cold; 
   double   m_t_avg;  
   double   m_temp[2];
   double   m_old_pos[2]; 
-  double   m_new_pos[2]; 
-  bool     m_first_run; 
+  double   m_new_pos[2];  
   double   m_dir[4];
-  double   m_grad[2]; 
-  double   m_timer1; 
+  //double   m_grad[2]; 
+  //double   m_timer1; 
 };
 
 #ifdef WIN32s

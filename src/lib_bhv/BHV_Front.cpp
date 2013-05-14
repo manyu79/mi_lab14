@@ -47,25 +47,17 @@ BHV_Front::BHV_Front(IvPDomain gdomain) :
 
 
   // Default values for behavior state variables
-  m_Kp  = 0;
-  m_Kd  = 0;
   m_new_pos[0] = 0.0; 
   m_new_pos[1] = 0.0; 
-  m_timer1 = 0.0;
-  m_first_run = true; 
-  m_t_hot = 22.75; 
-  m_t_cold = 22.25; 
+  m_t_hot = 25; 
+  m_t_cold = 20; 
+  m_t_avg  = (m_t_hot+m_t_cold)/2.0; 
   m_speed = 2.0; 
   m_head = 0.0; 
-
-  double i_ang=25; 
-  m_dir[0]=i_ang; 
-  m_dir[1]=180-i_ang; 
-  m_dir[2]=i_ang+180;
-  m_dir[3]=360-i_ang; 
-
+  m_x_max = 160;
+  m_x_min = -90; 
+ 
   addInfoVars("UCTD_MSMNT_REPORT");
-  // addInfoVars("UCTD_SENSOR_REQUEST"); 
 }
 
 //---------------------------------------------------------------
@@ -77,12 +69,16 @@ bool BHV_Front::setParam(string param, string val)
   param = tolower(param);
 
   double double_val = atof(val.c_str());
-  if((param == "kp") && (isNumber(val))) {
-    m_Kp = double_val;
+  if((param == "ang") && (isNumber(val))) {
+    m_ang = double_val;
+    m_dir[0]=m_ang; 
+    m_dir[1]=180-m_ang; 
+    m_dir[2]=m_ang+180;
+    m_dir[3]=360-m_ang; 
     return(true);
   }
-  else if((param == "kd") && (isNumber(val))) {
-    m_Kd = double_val;
+  else if((param == "offset") && (isNumber(val))) {
+    m_off = double_val;
     return(true);
   }
   return(false);
@@ -100,51 +96,10 @@ void BHV_Front::onIdleState()
 
 IvPFunction *BHV_Front::onRunState() 
 {
-  if(m_first_run){
-    m_first_run = false; 
-    m_timer1 = getBufferCurrTime(); 
-  }
- 
-  /*
-  while(!dx_delay(100.0,&m_timer1)){
-    m_speed = 2.0; 
-    m_head = 90+45;  
-    IvPFunction *ipf = buildFunctionWithZAIC(); 
-    return(ipf); 
-  }
-  */
-
-
   keepFront();
   m_speed = 2.0; 
   IvPFunction *ipf = buildFunctionWithZAIC(); 
   return(ipf); 
-  /*
-// Part 1: Get vehicle position from InfoBuffer and post a 
-  // warning if problem is encountered
-  bool ok1, ok2,ok3;
-  m_osx = getBufferDoubleVal("NAV_X", ok1);
-  m_osy = getBufferDoubleVal("NAV_Y", ok2);
-  if(!ok1 || !ok2) {
-    postWMessage("No ownship X/Y info in info_buffer.");
-    return(0);
-  }
-  m_wpt = getBufferDoubleVal("WPT_INDEX",ok3);
-  if (abs(m_wpt-m_wpt_old)>.9 && !m_flag) {
-    m_heading = getBufferDoubleVal("NAV_HEADING", ok1);  
-    postWMessage(doubleToString(m_heading)); 
- 
-  }else if(dxyazdi_delay(m_durr,&m_timer1) && m_flag){
-    if (dxyazdi_delay(m_durr+m_zig_duration,&m_timer2)) {
-
-    }
-    IvPFunction *ipf = buildFunctionWithZAIC();  
-    return(ipf); 
-  } 
-
-  return(0);
-
-  */
 }
 
 //-----------------------------------------------------------
@@ -154,14 +109,14 @@ IvPFunction *BHV_Front::buildFunctionWithZAIC()
 {
   ZAIC_PEAK spd_zaic(m_domain, "speed");
   spd_zaic.setSummit(m_speed); 
-  spd_zaic.setPeakWidth(0.5); 
-  spd_zaic.setBaseWidth(1.0); 
+  spd_zaic.setPeakWidth(0.25); 
+  spd_zaic.setBaseWidth(.5); 
   spd_zaic.setSummitDelta(0.8); 
 
   ZAIC_PEAK crs_zaic(m_domain, "course");
   crs_zaic.setSummit(m_head); 
   crs_zaic.setPeakWidth(0.0); 
-  crs_zaic.setBaseWidth(180.0); 
+  crs_zaic.setBaseWidth(90.0); 
   crs_zaic.setSummitDelta(0.0); 
 
   IvPFunction *spd_ipf = spd_zaic.extractIvPFunction(); 
@@ -197,6 +152,7 @@ void BHV_Front::updateSensorData(){
 }
 
 //---------------------------------------------------------
+/*
 bool BHV_Front::dx_delay(double delay, double *init_time){
   if(getBufferCurrTime()-*init_time>=delay){
     return true; 
@@ -204,17 +160,18 @@ bool BHV_Front::dx_delay(double delay, double *init_time){
     return false; 
   }
 }
+*/
 //-------------------------------------------------------
 void BHV_Front::keepFront(){
   updateSensorData(); 
-  if(m_temp[1]>=m_t_hot){
+  if(m_temp[1]>=m_t_avg+m_off){
     m_head=min_dhead(m_dir[0],m_dir[3]); 
-  }else if(m_temp[1]<=m_t_cold){
+  }else if(m_temp[1]<=m_t_avg-m_off){
     m_head=min_dhead(m_dir[1],m_dir[2]); 
   }
- if(m_new_pos[0]>160){
+ if(m_new_pos[0]>m_x_max){
     m_head=min_dhead(m_dir[2],m_dir[3]); 
-  }else if(m_new_pos[0]<-90.0){
+  }else if(m_new_pos[0]<m_x_min){
     m_head=min_dhead(m_dir[0],m_dir[1]); 
   }
   return; 
@@ -228,6 +185,7 @@ double BHV_Front::min_dhead(double cat, double dog){
   }
 }
 //--------------------------------------------------------
+/*
 void BHV_Front::computeGrad(){
   updateSensorData(); 
   double dx=m_new_pos[0]-m_old_pos[0]; 
@@ -236,5 +194,6 @@ void BHV_Front::computeGrad(){
   m_grad[0]=dT/dx; 
   m_grad[1]=dT/dy; 
 }
+*/
 //------------------------------------------------------------
 

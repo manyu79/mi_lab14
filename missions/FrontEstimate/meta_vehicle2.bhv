@@ -51,7 +51,7 @@ Behavior = BHV_Circle
   inactiveflag   = SURVEY_UNDERWAY = false
   endflag   = SURVEY = true
 
-        radius = 35
+        radius = 65
 	arc    = 180
 	center = 55,-90
 }

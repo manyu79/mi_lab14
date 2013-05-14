@@ -110,7 +110,7 @@ IvPFunction *BHV_Front::onRunState()
 {
 
   if(m_first_run){
-    getTemps(); 
+    //getTemps(); 
     m_iter++; 
     if(m_iter>100){
     m_first_run = false;

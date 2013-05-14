@@ -6,7 +6,7 @@ initialize   STATION_KEEP = false
 initialize   SURVEY  = false
 initialize   AVOID   = true
 initialize   SURVEY_UNDERWAY = true
-initialize   OPREGION = false
+initialize   OPREGION = true
 set MODE = ACTIVE {
   DEPLOY = true
 } INACTIVE
@@ -87,22 +87,6 @@ Behavior = BHV_OpRegion
 
   visual_hints = edge_size=1, vertex_size=2
 }
-
-//----------------------------------------------
-
-//Behavior = BHV_ConstantDepth
-//{
-//  name      = bhv_const_depth_b
-//  pwt       = 60
-//  duration  = no-time-limit
-//  condition = DEPLOY = true
-//
-//        depth = 5
-//    peakwidth = 3
-//    basewidth = 2
-//  summitdelta = 20
-//}
-
 
 //------------------------------------------------
 Behavior = BHV_AvoidCollision

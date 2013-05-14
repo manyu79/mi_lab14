@@ -92,8 +92,8 @@ nsplug meta_shoreside.moos targ_shoreside.moos -f WARP=$TIME_WARP \
 nsplug meta_vehicle.moos targ_$VNAME1.moos -f WARP=$TIME_WARP  \
    VNAME=$VNAME1      START_POS=$START_POS1                    \
    VPORT="9001"       SHARE_LISTEN="9301"                      \
-   VTYPE=UUV          COOL_FAC=$COOL_FAC  COOL_STEPS=$COOL_STEPS\
-   CONCURRENT=$CONCURRENT  ADAPTIVE=$ADAPTIVE
+   VTYPE=KAYAK          COOL_FAC=$COOL_FAC  COOL_STEPS=$COOL_STEPS\
+   CONCURRENT=$CONCURRENT  ADAPTIVE=$ADAPTIVE  MASTER="true"
 
 nsplug meta_vehicle.bhv targ_$VNAME1.bhv -f VNAME=$VNAME1      \
     START_POS=$START_POS1 SURVEY_X=$SURVEY_X SURVEY_Y=$SURVEY_Y \
@@ -104,8 +104,8 @@ nsplug meta_vehicle.bhv targ_$VNAME1.bhv -f VNAME=$VNAME1      \
 nsplug meta_vehicle.moos targ_$VNAME2.moos -f WARP=$TIME_WARP  \
    VNAME=$VNAME2      START_POS=$START_POS1                    \
    VPORT="9002"       SHARE_LISTEN="9302"                      \
-   VTYPE=UUV          COOL_FAC=$COOL_FAC  COOL_STEPS=$COOL_STEPS\
-   CONCURRENT=$CONCURRENT  ADAPTIVE=$ADAPTIVE
+   VTYPE=KAYAK          COOL_FAC=$COOL_FAC  COOL_STEPS=$COOL_STEPS\
+   CONCURRENT=$CONCURRENT  ADAPTIVE=$ADAPTIVE MASTER="false"
 
 nsplug meta_vehicle.bhv targ_$VNAME2.bhv -f VNAME=$VNAME2      \
     START_POS=$START_POS2 SURVEY_X=$SURVEY_X SURVEY_Y=$SURVEY_Y \

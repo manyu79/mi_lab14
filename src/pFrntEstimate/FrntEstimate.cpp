@@ -25,6 +25,7 @@
 #include <iostream>
 #include <sstream>
 #include <math.h>
+#include "MBUtils.h"
 
 using namespace std;
 
@@ -60,6 +61,21 @@ CFrntEstimate::CFrntEstimate()
   max_T_N = 25; 
   min_T_S = 20;
   max_T_S = 30; 
+  partner_report = false;
+  master = true;
+
+  // Weights: These are the weights (relative to 1) for the master vehicle.
+  wt_offset = 1;
+  wt_angle = 1;
+  wt_amplitude = 1;
+  wt_period = 1;
+  wt_wavelength = 1;
+  wt_alpha = 1;
+  wt_beta = 1;
+  wt_T_N = 1;
+  wt_T_S = 1;
+  wt_temperature = 1;
+  
 }
 
 CFrntEstimate::~CFrntEstimate()
@@ -75,6 +91,10 @@ bool CFrntEstimate::OnStartUp()
     {
       vname = sVal;
     }     
+  if(m_MissionReader.GetConfigurationParam("master",sVal))
+    {
+      if( sVal == "false") master = false;
+    }
   
   if(m_MissionReader.GetConfigurationParam("temperature_factor",sVal))
     {
@@ -181,6 +201,7 @@ bool CFrntEstimate::OnStartUp()
 	MOOSTrace("Using Adaptive Simulated Annealing \n");
     }     
   
+  cout << "Finished Getting Parameters" << endl;
   delta_t = 1/(cooling_steps);
 
   // Initialize annealer
@@ -218,7 +239,7 @@ bool CFrntEstimate::OnStartUp()
   vars.push_back(0.5*(max_T_N+min_T_N));
   vars.push_back(0.5*(max_T_S+min_T_S));
   anneal.setInitVal(vars);
-
+  cout << "Started Annealer" << endl;
   return(true);
 }
 
@@ -227,7 +248,9 @@ bool CFrntEstimate::OnConnectToServer()
   m_Comms.Register("SURVEY_UNDERWAY",0);
   m_Comms.Register("UCTD_MSMNT_REPORT",0);
   m_Comms.Register("APPCAST_REQ",0);
+  m_Comms.Register("PARTNER_REPORT",0);
   AppCastingMOOSApp::RegisterVariables();
+  cout << "Registered for Variables" << endl;
   return(true);
 }
 
@@ -268,9 +291,11 @@ bool CFrntEstimate::Iterate()
       T_N  =       result[7];
       T_S  =       result[8];
       
-      postParameterReport();
+      postParameterToPartner();
+      //      postParameterReport();
       report_sent = true;
       new_anneal_report=false;
+      cout << "SENT REPORTS" << endl;
     }
   
 
@@ -308,6 +333,7 @@ bool CFrntEstimate::OnNewMail(MOOSMSG_LIST &NewMail)
 	}
       else if (rMsg.m_sKey == "SURVEY_UNDERWAY")
 	{
+	  cout << "SURVEY_UNDERWAY=" + rMsg.m_sVal << endl;
 	  if ( !in_survey && rMsg.m_sVal =="true")
 	    {
 	      MOOSTrace("Survey started\n");
@@ -323,27 +349,100 @@ bool CFrntEstimate::OnNewMail(MOOSMSG_LIST &NewMail)
 	      in_survey = false;
 	      completed = true;
 	      anneal_step = 0;
+	      m_Comms.Notify("T_NORTH",doubleToString(T_N));
+	      m_Comms.Notify("T_SOUTH",doubleToString(T_S));
+
+
 	    }
+	}
+      else if (rMsg.m_sKey == "PARTNER_REPORT")
+	{
+	  value = rMsg.m_sVal;
+	  parseParameterReport(value);
+	  if(master) postParameterReport();
 	}
     }
 
   return(true);
 }
 
-void CFrntEstimate::postParameterReport()
+void CFrntEstimate::postParameterToPartner()
 {
+  cout << "Sending to Partner" << endl;
   string sval;
   sval = "vname=" + vname;
-  sval += ",offset=" + doubleToString(offset);
-  sval += ",angle=" + doubleToString(angle);
-  sval += ",amplitude=" + doubleToString(amplitude);
-  sval += ",period=" + doubleToString(period);
-  sval += ",wavelength=" + doubleToString(wavelength);
-  sval += ",alpha=" + doubleToString(alpha);
-  sval += ",beta=" + doubleToString(beta);
-  sval += ",tempnorth=" + doubleToString(T_N);
-  sval += ",tempsouth=" + doubleToString(T_S);
-  m_Comms.Notify("UCTD_PARAMETER_ESTIMATE",sval);
+  sval += ";offset=" + doubleToString(offset);
+  sval += ";angle=" + doubleToString(angle);
+  sval += ";amplitude=" + doubleToString(amplitude);
+  sval += ";period=" + doubleToString(period);
+  sval += ";wavelength=" + doubleToString(wavelength);
+  sval += ";alpha=" + doubleToString(alpha);
+  sval += ";beta=" + doubleToString(beta);
+  sval += ";tempnorth=" + doubleToString(T_N);
+  sval += ";tempsouth=" + doubleToString(T_S);
+  string lval;
+  lval = "src_node=" + vname + ",dest_node=all,var_name=PARTNER_REPORT,string_val=" + sval;
+  m_Comms.Notify("NODE_MESSAGE_LOCAL",lval);
+}
+
+void CFrntEstimate::parseParameterReport(string val)
+{
+  cout << "Parsing from Partner" << endl;
+  vector<string> sval;
+  sval = parseString(val,';');
+  cout << "  Biting" << endl;
+  for(int i=0;i<sval.size();i++) biteString(sval[i],'=');
+  if(sval.size()>1){
+    cout << "  Setting" << endl;
+    p_offset = atof(sval[1].c_str());
+    p_angle  = atof(sval[2].c_str() );
+    p_amplitude = atof(sval[3].c_str() );
+    p_period = atof(sval[4].c_str() );
+    p_wavelength = atof(sval[5].c_str() );
+    p_alpha = atof(sval[6].c_str() );
+    p_beta = atof(sval[7].c_str() );
+    p_T_N = atof(sval[8].c_str() );
+    p_T_S = atof(sval[9].c_str() );
+    partner_report = true;
+  }
+  cout << "  Returning" << endl;
+  return;
+}
+
+void CFrntEstimate::postParameterReport()
+{
+
+  string sval;
+  if(master){
+    if(!partner_report){
+      sval = "vname=" + vname;
+      sval += ",offset=" + doubleToString(offset);
+      sval += ",angle=" + doubleToString(angle);
+      sval += ",amplitude=" + doubleToString(amplitude);
+      sval += ",period=" + doubleToString(period);
+      sval += ",wavelength=" + doubleToString(wavelength);
+      sval += ",alpha=" + doubleToString(alpha);
+      sval += ",beta=" + doubleToString(beta);
+      sval += ",tempnorth=" + doubleToString(T_N);
+      sval += ",tempsouth=" + doubleToString(T_S);    
+    }
+    else{
+      cout << endl;
+      sval = "vname=" + vname;
+      sval += ",offset=" + doubleToString((offset*wt_offset+p_offset)/(1+wt_offset));
+      sval += ",angle=" + doubleToString((angle*wt_angle+p_angle)/(1+wt_angle));
+      sval += ",amplitude=" + doubleToString((amplitude*wt_amplitude+p_amplitude)/(1+wt_amplitude));
+      sval += ",period=" + doubleToString((period*wt_period+p_period)/(1+wt_period));
+      sval += ",wavelength=" + doubleToString((p_wavelength*wt_wavelength+wavelength)/(1+wt_wavelength));
+      sval += ",alpha=" + doubleToString((alpha*wt_alpha+p_alpha)/(1+wt_alpha));
+      sval += ",beta=" + doubleToString((p_beta+beta*wt_beta)/(1+wt_beta));
+      sval += ",tempnorth=" + doubleToString((p_T_N+T_N*wt_T_N)/(1+wt_T_N));
+      sval += ",tempsouth=" + doubleToString((p_T_S+T_S*wt_T_S)/(1+wt_T_S));
+    }
+    m_Comms.Notify("UCTD_PARAMETER_ESTIMATE",sval);
+    cout << "Sending to Shore" << endl;
+  }
+  return;
 }
 
 
@@ -373,7 +472,8 @@ bool CFrntEstimate::buildReport()
     m_msgs<<"beta=" << doubleToString(beta)<<endl;
     m_msgs<<"tempnorth=" << doubleToString(T_N)<<endl;
     m_msgs<< "tempsouth=" << doubleToString(T_S)<<endl;
-
+    if (partner_report)
+      m_msgs<< "Got something from partner"<<endl;
  
 
     //}

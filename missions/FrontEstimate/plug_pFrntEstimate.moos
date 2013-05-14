@@ -26,4 +26,5 @@ ProcessConfig = pFrntEstimate
   max_T_S = 30 
   concurrent = $(CONCURRENT)
   adaptive=$(ADAPTIVE)
+  master = $(MASTER)
 }

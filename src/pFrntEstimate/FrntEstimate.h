@@ -22,6 +22,7 @@
 
 #ifndef FRONTESTIMATE_HEADER
 #define FRONTESTIMATE_HEADER
+
 #include "MOOS/libMOOS/MOOSLib.h"
 //#include "MOOSLIB/MOOSLib.h"
 //#include "MOOSGenLib/MOOSGenLib.h"
@@ -65,6 +66,33 @@ class CFrntEstimate : public AppCastingMOOSApp
   double T_N;
   double T_S;
   double temperature;
+  // Partnering Parameters
+  double p_offset;
+  double p_angle;
+  double p_amplitude;
+  double p_period;
+  double p_wavelength;
+  double p_alpha;
+  double p_beta;
+  double p_T_N;
+  double p_T_S;
+  double p_temperature;
+
+  bool partner_report;
+  bool master;
+
+  // Parameter weights
+  double wt_offset;
+  double wt_angle;
+  double wt_amplitude;
+  double wt_period;
+  double wt_wavelength;
+  double wt_alpha;
+  double wt_beta;
+  double wt_T_N;
+  double wt_T_S;
+  double wt_temperature;
+
   // lower limits for annealer
   double min_offset;
   double min_angle;
@@ -95,6 +123,9 @@ class CFrntEstimate : public AppCastingMOOSApp
   std::string vname;
 
   void postParameterReport();
+  void parseParameterReport(std::string val);
+  void postParameterToPartner();
+
 };
 
 #endif 

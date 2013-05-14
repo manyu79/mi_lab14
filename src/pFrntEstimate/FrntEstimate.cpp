@@ -79,7 +79,7 @@ CFrntEstimate::CFrntEstimate()
 
   stat_T_N = 20;
   stat_T_S = 25;
-  first_report = true;
+  num_report = 0;
 }
 
 CFrntEstimate::~CFrntEstimate()
@@ -280,9 +280,8 @@ bool CFrntEstimate::Iterate()
     }
 
   if (!report_sent && 
-      ((concurrent && completed 
-	) || (!concurrent && anneal_step == cooling_steps)))
-    {
+      ((concurrent && completed) || (!concurrent && anneal_step == cooling_steps))
+      ){
       vector<double> result;
       anneal.getEstimate(result);
       offset =     result[0];
@@ -333,7 +332,7 @@ bool CFrntEstimate::OnNewMail(MOOSMSG_LIST &NewMail)
 	  anneal.addMeas(buf);
 	  num_meas += 1;
 	  MOOSTrace("New measurement added, Total = %d\n", num_meas);
-	  report_sent =false;
+	  // report_sent = false;
 	}
       else if (rMsg.m_sKey == "SURVEY_UNDERWAY")
 	{
@@ -344,7 +343,7 @@ bool CFrntEstimate::OnNewMail(MOOSMSG_LIST &NewMail)
               anneal.clearMeas();
 	      in_survey = true;
 	      completed = false;
-	      report_sent =false;
+	      report_sent = false;
 	      num_meas = 0;
 	    }
 	  else if ( in_survey && rMsg.m_sVal == "false")
@@ -383,12 +382,12 @@ void CFrntEstimate::postParameterToPartner()
   sval += ";alpha=" + doubleToString(alpha);
   sval += ";beta=" + doubleToString(beta);
   
-  if (first_report){
+  if (num_report<2){
     sval += ";tempnorth=" + doubleToString(T_N);
     stat_T_N = T_N;
     sval += ";tempsouth=" + doubleToString(T_S);
     stat_T_S = T_S;
-    first_report = false;
+    num_report++;
   }
   else{
     sval += ";tempnorth=" + doubleToString(stat_T_N);

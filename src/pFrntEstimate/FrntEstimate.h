@@ -81,7 +81,7 @@ class CFrntEstimate : public AppCastingMOOSApp
   double p_T_S;
   double p_temperature;
 
-  bool first_report;
+  int num_report;
   bool partner_report;
   bool master;
 

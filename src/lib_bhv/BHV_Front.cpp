@@ -88,6 +88,9 @@ bool BHV_Front::setParam(string param, string val)
   }else if((param == "x_min") && (isNumber(val))) {
     m_x_min = double_val;
     return(true);
+  }else if((param == "vname")) {
+    m_name = stripBlankEnds(val);
+    return(true);
   }
   return(false);
 }
@@ -148,13 +151,19 @@ IvPFunction *BHV_Front::buildFunctionWithZAIC()
 // updateSensorData();
 void BHV_Front::updateSensorData(){
   bool ok1; 
+  bool vee_name = false; 
   string str = getBufferStringVal("UCTD_MSMNT_REPORT",ok1); 
   str = stripBlankEnds(str); 
   vector<string> vals = parseString(str,","); 
   for(vector<string>::size_type i=0; i<vals.size(); i++){
     string param = biteString(vals[i], '='); 
     string value = vals[i]; 
-    if(param=="x"){
+
+    if (param == "vname"){
+      if (value == m_name){
+	vee_name = true; 
+      }
+    }else if(param=="x"){
       m_new_pos[0]=strtod(value.c_str(),NULL); 
     }else if(param=="y"){
       m_new_pos[1]=strtod(value.c_str(),NULL); 

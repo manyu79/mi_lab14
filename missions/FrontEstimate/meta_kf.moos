@@ -1,6 +1,5 @@
 ServerHost = localhost
 ServerPort = $(VPORT)
-Simulator  = true
 
 // Community name IS the vehicle name
 Community  = $(VNAME)
@@ -24,16 +23,14 @@ Processconfig = ANTLER
   Run = uFldNodeBroker     @ NewConsole = false
   Run = uFldMessageHandler @ NewConsole = false
   
-  Run = uTimerScript       @ NewConsole = false
   Run = pFrntEstimate 	   @ NewConsole = false
-  Run = pHandleCTD	   @ NewConsole = false
   Run = pBasicContactMgr   @ NewConsole = false
 
   Run = uXMS		   @ NewConsole = false
   Run = uTimerScript       @ NewConsole = false ~ uTimerScript2
 
   Run = pEchoVar	   @ NewConsole = false
-  Run = iActuation_KF	   @ NewConsole = false
+  Run = iActuationKF	   @ NewConsole = false
   Run = iGPS_KF		   @ NewConsole = false
   Run = iOS5000		   @ NewConsole = false
 
@@ -61,7 +58,7 @@ Processconfig = ANTLER
 #include plug_uTimerScript2.moos
 
 #include plug_pEchoVar.moos
-#include plug_iActuationKF_$(VNAME).moos
+#include plug_iActuationKF.moos
 #include plug_iGPS_KF.moos
 #include plug_iOS5000.moos
 #include plug_origin_warp.moos
